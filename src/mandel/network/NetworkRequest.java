@@ -12,7 +12,7 @@ public class NetworkRequest {
 
 	public static void main(String args[]) throws UnknownHostException, IOException{
 		
-		Socket socket = new Socket("www.amazon.com", 80);//ipaddress/url, port
+		Socket socket = new Socket("localhost", 8080);//ipaddress/url, port
 		InputStream in = socket.getInputStream();
 		OutputStream out = socket.getOutputStream();
 		//three parts of a url: protocol, hostname, path
