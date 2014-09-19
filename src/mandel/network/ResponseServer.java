@@ -23,28 +23,11 @@ public class ResponseServer {
 															// for listening.
 															// 8080 is standard
 															// for listening
-		int counter = 0;
 		while (true) {
 			Socket socket = serverSocket.accept();
 
-			InputStream in = socket.getInputStream();
-
-			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-			String line;
-			while (!"".equals(line = reader.readLine())) {
-				System.out.println(line);
-			}
-
-			OutputStream out = socket.getOutputStream();
-			String response = "<h2>This is the " + counter + "th request";
-			out.write("HTTP/1.1 200 OK\n".getBytes());;
-			out.write("Content-Type: text/html; charset=utf-8\n".getBytes());
-			out.write(("Content-Length: " + response.length() + "\n\n").getBytes());
-			out.write(response.getBytes());
-			out.flush();
-			out.close();
-			
-			counter++;
+			ResponseThread t = new ResponseThread(socket);
+			t.start();
 		}
 
 	}
