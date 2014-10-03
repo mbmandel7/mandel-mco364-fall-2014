@@ -14,16 +14,16 @@ public class Server {
 	}
 	
 	public static void main(String args[]) throws IOException {
-		Frame frame = new Frame();
+		ServerFrame frame = new ServerFrame();
 		frame.setVisible(true);
 		
-		ServerSocket serverSocket = new ServerSocket(1025);
+		ServerSocket serverSocket = new ServerSocket(8080);
 		Socket socket = serverSocket.accept();
 		InputStream in = socket.getInputStream();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		String line;
 		while((line = reader.readLine()) != null){
-			frame.setChat(line);
+			frame.setChat(line + "\n");
 		}
 		serverSocket.close();
 		
