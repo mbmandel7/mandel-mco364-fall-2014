@@ -5,19 +5,14 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 
 public class Client {
-	
+
 	private Socket socket;
-	
-	public Client() throws UnknownHostException, IOException{
-		socket = new Socket("192.168.117.112", 8080);
+
+	public Client() throws UnknownHostException, IOException {
+		socket = new Socket("192.168.117.107", 3773);
 	}
-	
-	public static void main (String args[]) throws UnknownHostException, IOException{
-		ClientFrame frame = new ClientFrame();
-		frame.setVisible(true);		
-	}
-	
-	public Socket getSocket(){
+
+	public Socket getSocket() {
 		return socket;
 	}
 
