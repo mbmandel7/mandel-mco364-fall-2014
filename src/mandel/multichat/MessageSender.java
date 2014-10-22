@@ -12,10 +12,12 @@ public class MessageSender extends Thread {
 
 	private BlockingQueue<String> messages;
 	private List<Socket> sockets;
+	private Frame frame;
 
-	public MessageSender(BlockingQueue<String> messages, List<Socket> sockets) {
+	public MessageSender(BlockingQueue<String> messages, List<Socket> sockets, Frame frame) {
 		this.messages = messages;
 		this.sockets = sockets;
+		this.frame = frame;
 	}
 
 	@Override
@@ -24,7 +26,7 @@ public class MessageSender extends Thread {
 			String message;
 			try {
 				message = messages.take();
-
+				
 				Iterator<Socket> iter = sockets.iterator();
 				while (iter.hasNext()) {
 					OutputStream out;
@@ -39,7 +41,9 @@ public class MessageSender extends Thread {
 						e.printStackTrace();
 						iter.remove();
 					}
-				}
+				}				
+				frame.setText(message + "\n");
+				
 			} catch (InterruptedException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
