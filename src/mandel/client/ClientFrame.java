@@ -1,4 +1,4 @@
-package mandel.chat;
+package mandel.client;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
@@ -23,8 +23,8 @@ public class ClientFrame extends JFrame {
 	private Client client;
 
 	public ClientFrame() throws UnknownHostException, IOException {
-
 		client = new Client();
+		OutputStream out = client.getSocket().getOutputStream();
 
 		setTitle("Chat Client");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -38,8 +38,6 @@ public class ClientFrame extends JFrame {
 
 		send = new JButton("Send");
 		send.addActionListener(new ActionListener() {
-
-			OutputStream out = client.getSocket().getOutputStream();
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {

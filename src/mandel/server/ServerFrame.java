@@ -1,8 +1,11 @@
-package mandel.chat;
+package mandel.server;
 
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.Socket;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -15,8 +18,11 @@ public class ServerFrame extends JFrame {
 	private JTextArea chat;
 	private JTextField text;
 	private JButton send;
+	private Server server;
 
-	public ServerFrame() {
+	public ServerFrame() throws IOException {
+		server = new Server();
+		OutputStream out = server.getSocket().getOutputStream();
 
 		setTitle("Chat Server");
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -32,8 +38,16 @@ public class ServerFrame extends JFrame {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				chat.setText(chat.getText() + "\n" + text.getText());
+				String message = text.getText() + "\n";
+				chat.setText(chat.getText() + message);
 				text.setText(null);
+				
+				try{
+					out.write(message.getBytes());
+					out.flush();
+				}catch(IOException e){
+					e.printStackTrace();
+				}
 			}
 
 		});
@@ -48,5 +62,9 @@ public class ServerFrame extends JFrame {
 
 	public void setChat(String message) {
 		this.chat.setText(chat.getText() + message);
+	}
+	
+	public Socket getSocket(){
+		return server.getSocket();
 	}
 }

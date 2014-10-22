@@ -1,4 +1,4 @@
-package mandel.chat;
+package mandel.server;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -8,25 +8,29 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
+	
+	private ServerSocket serverSocket;
+	private Socket socket;
 
-	public Server() {
-
+	public Server() throws IOException {
+		serverSocket = new ServerSocket(3773);
+		socket = serverSocket.accept();
+	}
+	
+	public Socket getSocket(){
+		return socket;
 	}
 
 	public static void main(String args[]) throws IOException {
 		ServerFrame frame = new ServerFrame();
 		frame.setVisible(true);
 
-		ServerSocket serverSocket = new ServerSocket(1025);
-		Socket socket = serverSocket.accept();
-		InputStream in = socket.getInputStream();
+		InputStream in = frame.getSocket().getInputStream();
 		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
 		String line;
 		while ((line = reader.readLine()) != null) {
 			frame.setChat(line + "\n");
 		}
-		serverSocket.close();
-
 	}
 
 }
