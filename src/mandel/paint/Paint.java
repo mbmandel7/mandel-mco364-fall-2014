@@ -1,7 +1,8 @@
 package mandel.paint;
 
+import java.awt.BorderLayout;
+
 import javax.swing.JFrame;
-import javax.swing.JPanel;
 
 public class Paint extends JFrame {
 
@@ -14,9 +15,16 @@ public class Paint extends JFrame {
 		setLocationRelativeTo(null);
 
 		Canvas canvas = new Canvas();
-		DrawListener listener = new DrawListener(canvas);
-		canvas.addMouseMotionListener(listener);
 		add(canvas);
+
+		DrawListener draw = new DrawListener(canvas);
+		canvas.addMouseMotionListener(draw);
+		
+		ClickListener click = new ClickListener(canvas);
+		canvas.addMouseListener(click);
+		
+		ColorPanel colors = new ColorPanel(canvas);
+		add(colors, BorderLayout.NORTH);
 
 	}
 
