@@ -1,7 +1,10 @@
 package mandel.paint;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 
 public class Paint extends JFrame {
@@ -23,9 +26,21 @@ public class Paint extends JFrame {
 		ClickListener click = new ClickListener(canvas);
 		canvas.addMouseListener(click);
 		
-		ColorPanel colors = new ColorPanel(canvas);
-		add(colors, BorderLayout.NORTH);
+		ColorPicker picker = new ColorPicker(canvas);
+		JButton colorPicker = new JButton();
+		colorPicker.addActionListener(new ActionListener(){
 
+			@Override
+			public void actionPerformed(ActionEvent arg0) {
+			//	add(picker, BorderLayout.SOUTH);
+			}			
+		});
+		add(colorPicker, BorderLayout.NORTH);
+		
+		
+		
+		WidthListener width = new WidthListener(canvas);
+		canvas.addMouseWheelListener(width);
 	}
 
 	public static void main(String args[]) {
