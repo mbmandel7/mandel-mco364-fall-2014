@@ -2,14 +2,9 @@ package mandel.paint;
 
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 
-public class ClickListener implements MouseListener{
-	
-	private Canvas canvas;
-	
-	public ClickListener(Canvas canvas){
-		this.canvas = canvas;
-	}
+public class RectangleListener implements MouseMotionListener, MouseListener {
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
@@ -32,11 +27,23 @@ public class ClickListener implements MouseListener{
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 		// TODO Auto-generated method stub
-		canvas.click(true);
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 
 	}

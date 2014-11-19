@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.RenderingHints;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
@@ -20,47 +22,51 @@ public class Canvas extends JComponent {
 	private Color color;
 	private boolean clicked;
 	private Graphics g;
-	private int width;
+	private Graphics2D g2;
+	private DrawListener listener;
 
 	public Canvas() {
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 		color = Color.BLACK;
 		clicked = false;
-		width = 5;
 		g = image.getGraphics();
+		g2 = (Graphics2D) g;
 	}
 
 	public void setWidth(int w) {
-		if(width + w > 0){
-			width += w;
-		}		
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(width));
-		
+		g2.setStroke(new BasicStroke(w, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 	}
 
 	public void setColor(Color c) {
 		this.color = c;
+		g.setColor(color);
 	}
 
 	public void click(boolean b) {
 		this.clicked = b;
 	}
-
-	public void setPoint(Point p) {
-		g.setColor(color);
-		if (!clicked) {
-			g.drawLine(oldPoint.x, oldPoint.y, p.x, p.y);
+	
+	public void drawRect(Point p){
+		if(!clicked){
+			g.drawRect(oldPoint.x, oldPoint.y, p.x, p.y);
+			repaint();
 		}
 		oldPoint = p;
 		clicked = false;
-		// g.drawOval(p.x, p.y, 20, 20);
-		repaint();
+	}
+	
+	public void drawLine(Point p){
+		if (!clicked) {
+			g.drawLine(oldPoint.x, oldPoint.y, p.x, p.y);
+			repaint();
+		}
+		oldPoint = p;
+		clicked = false;
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
 		g.drawImage(image, 0, 0, null);
+		listener.drawPreview((Graphics2D)g);
 	}
-
 }

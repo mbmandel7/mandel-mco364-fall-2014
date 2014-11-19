@@ -1,15 +1,18 @@
 package mandel.paint;
 
 import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-import javax.swing.JButton;
 import javax.swing.JFrame;
+
+//draw straight line, pencil, rectangle, oval, fillrect, filloval, clear screen
+
 
 public class Paint extends JFrame {
 
 	private static final long serialVersionUID = 1L;
+	private int width = 0;
+	private Canvas canvas;
+	private ButtonPanel buttons;
 
 	public Paint() {
 		setTitle("Paint");
@@ -17,30 +20,28 @@ public class Paint extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 
-		Canvas canvas = new Canvas();
+		canvas = new Canvas();
 		add(canvas);
 
-		DrawListener draw = new DrawListener(canvas);
+		PencilListener draw = new PencilListener(canvas);
 		canvas.addMouseMotionListener(draw);
 		
 		ClickListener click = new ClickListener(canvas);
 		canvas.addMouseListener(click);
 		
-		ColorPicker picker = new ColorPicker(canvas);
-		JButton colorPicker = new JButton();
-		colorPicker.addActionListener(new ActionListener(){
-
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-			//	add(picker, BorderLayout.SOUTH);
-			}			
-		});
-		add(colorPicker, BorderLayout.NORTH);
-		
-		
-		
-		WidthListener width = new WidthListener(canvas);
+		WidthListener width = new WidthListener(this);
 		canvas.addMouseWheelListener(width);
+		
+		buttons = new ButtonPanel(canvas);
+		add(buttons, BorderLayout.NORTH);
+	}
+	
+	public void setLineWidth(int w){
+		if(width + w > 0){
+			width += w;
+		}		
+		canvas.setWidth(width);
+		buttons.setWidthText("WIDTH: " + width);
 	}
 
 	public static void main(String args[]) {
