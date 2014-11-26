@@ -11,38 +11,44 @@ public class Paint extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private int width = 0;
-	private Canvas canvas;
-	private ButtonPanel buttons;
+	private Canvas2 canvas;
+	private ColorPicker colors;
 
 	public Paint() {
 		setTitle("Paint");
 		setSize(800, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-
-		canvas = new Canvas();
+		
+		
+		canvas = new Canvas2();
 		add(canvas);
-
-		PencilListener draw = new PencilListener(canvas);
-		canvas.addMouseMotionListener(draw);
 		
-		ClickListener click = new ClickListener(canvas);
-		canvas.addMouseListener(click);
 		
-		WidthListener width = new WidthListener(this);
-		canvas.addMouseWheelListener(width);
 		
-		buttons = new ButtonPanel(canvas);
-		add(buttons, BorderLayout.NORTH);
+//		//draw with pencil
+//		PencilListener draw = new PencilListener(canvas);
+//		canvas.addMouseMotionListener(draw);
+//		
+//		ClickListener click = new ClickListener(canvas);
+//		canvas.addMouseListener(click);
+//		
+//		//change width
+//		WidthListener width = new WidthListener(this);
+//		canvas.addMouseWheelListener(width);
+//		
+//		//change color
+//		colors = new ColorPicker(canvas);
+//		add(colors, BorderLayout.NORTH);
 	}
 	
-	public void setLineWidth(int w){
-		if(width + w > 0){
-			width += w;
-		}		
-		canvas.setWidth(width);
-		buttons.setWidthText("WIDTH: " + width);
-	}
+//	public void setLineWidth(int w){
+//		if(width + w > 0){
+//			width += w;
+//		}		
+//		canvas.setWidth(width);
+//		buttons.setWidthText("WIDTH: " + width);
+//	}
 
 	public static void main(String args[]) {
 		Paint p = new Paint();

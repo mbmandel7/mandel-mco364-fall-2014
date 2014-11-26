@@ -24,8 +24,10 @@ public class Canvas extends JComponent {
 	private Graphics g;
 	private Graphics2D g2;
 	private DrawListener listener;
+	
 
 	public Canvas() {
+		
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 		color = Color.BLACK;
 		clicked = false;

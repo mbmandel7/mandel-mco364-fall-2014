@@ -10,7 +10,7 @@ import javax.swing.JColorChooser;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-public class ButtonPanel extends JPanel{
+public class ColorPicker extends JPanel{
 	
 	/**
 	 * 
@@ -18,7 +18,7 @@ public class ButtonPanel extends JPanel{
 	private static final long serialVersionUID = 1L;
 	private JLabel widthLabel;
 	
-	public ButtonPanel(final Canvas canvas){
+	public ColorPicker(final Canvas canvas){
 		
 		//color
 		final JButton colorPicker = new JButton();
