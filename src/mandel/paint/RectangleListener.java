@@ -11,43 +11,30 @@ public class RectangleListener implements DrawListener {
 
 	private Point startPoint;
 	private Point movingPoint;
-	private Point endPoint;
 
 	private Canvas2 canvas;
-	private Color color;
-	
-	public void setColor(Color c){
-		this.color = c;
-	}
 
 	public RectangleListener(Canvas2 c) {
 		this.canvas = c;
-		startPoint = new Point(0, 0);
-		movingPoint = new Point(50, 50);
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("CLicked");
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("CLicked");
 	}
 
 	@Override
 	public void mouseExited(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("CLicked");
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
-		
-		System.out.println("CLicked");
 		// TODO Auto-generated method stub
 		this.startPoint = e.getPoint();
 		
@@ -55,54 +42,49 @@ public class RectangleListener implements DrawListener {
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
-		System.out.println("CLicked");
 		// TODO Auto-generated method stub
-		this.endPoint = e.getPoint();
+		Point endPoint = e.getPoint();		
+		Graphics g = canvas.getImage().getGraphics();
 		
-		canvas.imageReady(createImage());
-
+		int width = Math.abs(startPoint.x - endPoint.x);
+		int length = Math.abs(startPoint.y - endPoint.y);
+		
+		if(endPoint.x < startPoint.x){//2 and 3
+			if(endPoint.y < startPoint.y){//2
+				g.drawRect(endPoint.x, endPoint.y, width, length);//2				
+			}else{//3
+				g.drawRect(endPoint.x, startPoint.y, width, length);//3				
+			}			
+		}else{
+			if(endPoint.y < startPoint.y){//4
+				g.drawRect(startPoint.x, endPoint.y, width, length);//4				
+			}else{//1
+				g.drawRect(startPoint.x, startPoint.y, width, length);//1				
+			}
+		}
 		startPoint = null;
 		canvas.repaint();
 	}
-	
-	public BufferedImage createImage(){
-		BufferedImage img = new BufferedImage(800, 600,
-				BufferedImage.TYPE_INT_ARGB);
-		Graphics g = img.getGraphics();
-		
-		
 
-		int width = calculateWidth(endPoint);
-		int length = calculateLength(endPoint);
-
-		drawRectOnCalculatedCoordinates(endPoint, g, width, length);
-
-		return img;
-	}
-
-	public void drawRectOnCalculatedCoordinates(Point p2, Graphics g, int width, int length) {
-		if (startPoint.x < p2.x) {
-			if (startPoint.y < p2.y) {//top left
-				g.drawRect(startPoint.x, p2.y, p2.x, startPoint.y);
-				//g.drawRect(startPoint.x, startPoint.y, width, length);
-			} else {
-				g.drawRect(startPoint.x, startPoint.y, p2.x, p2.y);
-				//g.drawRect(p2.x, startPoint.y, width, length);//bottom left
-			}
-		} else {
-			if (startPoint.y > p2.y) {//top right
-				//g.drawRect(startPoint.x, p2.y, width, length);
-				g.drawRect(p2.x, startPoint.y, startPoint.x, p2.y);
-			} else {//bottom right
-				//g.drawRect(p2.x, p2.y, width, length);
-				g.drawRect(p2.x, p2.y, startPoint.x, startPoint.y);
+	public void drawRectOnCalculatedCoordinates(Point p2) {
+		Graphics g = canvas.getImage().getGraphics();
+		if(p2.x < startPoint.x){//2 and 3
+			if(p2.y < startPoint.y){//2
+				g.drawRect(p2.x, p2.y, Math.abs(startPoint.x - p2.x), Math.abs(startPoint.y - p2.y));//2				
+			}else{//3
+				g.drawRect(p2.x, startPoint.y, Math.abs(startPoint.x - p2.x), Math.abs(startPoint.y - p2.y));//3				
+			}			
+		}else{
+			if(p2.y < startPoint.y){//4
+				g.drawRect(startPoint.x, p2.y, Math.abs(startPoint.x - p2.x), Math.abs(startPoint.y - p2.y));//4				
+			}else{//1
+				g.drawRect(startPoint.x, startPoint.y, Math.abs(startPoint.x - p2.x), Math.abs(startPoint.y - p2.y));//1				
 			}
 		}
 	}
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
-		System.out.println("CLicked");
 		// TODO Auto-generated method stub
 		this.movingPoint = e.getPoint();
 		canvas.repaint();
@@ -111,34 +93,25 @@ public class RectangleListener implements DrawListener {
 	@Override
 	public void mouseMoved(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println("CLicked");
-	}
-
-	private int calculateWidth(Point p2) {
-		int width;
-		if (startPoint.x < p2.x) {
-			width = p2.x - startPoint.y;
-		} else {
-			width = startPoint.x - p2.y;
-		}
-		return width;
-	}
-
-	private int calculateLength(Point p2) {
-		int length;
-		if (startPoint.y < p2.y) {
-			length = p2.y - startPoint.y;
-		} else {
-			length = startPoint.y - p2.y;
-		}
-		return length;
 	}
 
 	@Override
 	public void drawPreview(Graphics2D g) {
 		// TODO Auto-generated method stub
 		if (startPoint != null) {
-			drawRectOnCalculatedCoordinates(movingPoint, g, calculateWidth(movingPoint), calculateLength(movingPoint));
+			if(movingPoint.x < startPoint.x){//2 and 3
+				if(movingPoint.y < startPoint.y){//2
+					g.drawRect(movingPoint.x, movingPoint.y, Math.abs(startPoint.x - movingPoint.x), Math.abs(startPoint.y - movingPoint.y));//2				
+				}else{//3
+					g.drawRect(movingPoint.x, startPoint.y, Math.abs(startPoint.x - movingPoint.x), Math.abs(startPoint.y - movingPoint.y));//3				
+				}			
+			}else{
+				if(movingPoint.y < startPoint.y){//4
+					g.drawRect(startPoint.x, movingPoint.y, Math.abs(startPoint.x - movingPoint.x), Math.abs(startPoint.y - movingPoint.y));//4				
+				}else{//1
+					g.drawRect(startPoint.x, startPoint.y, Math.abs(startPoint.x - movingPoint.x), Math.abs(startPoint.y - movingPoint.y));//1				
+				}
+			}
 		}
 	}
 
