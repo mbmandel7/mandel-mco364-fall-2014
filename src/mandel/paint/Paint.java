@@ -24,6 +24,8 @@ public class Paint extends JFrame {
 		canvas = new Canvas2();
 		add(canvas);
 		
+		add(new ButtonPanel(canvas), BorderLayout.NORTH);
+		
 		
 		
 //		//draw with pencil

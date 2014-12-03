@@ -20,7 +20,7 @@ public class ColorPicker extends JPanel{
 	
 	public ColorPicker(final Canvas canvas){
 		
-		//color
+		color
 		final JButton colorPicker = new JButton();
 		colorPicker.setBackground(Color.BLACK);
 		colorPicker.addActionListener(new ActionListener(){
