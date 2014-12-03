@@ -5,22 +5,17 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 
 public class StraightLineListener implements DrawListener {
 
 	private Point startPoint;
 	private Point movingPoint;
-	private Point endPoint;
 	private Canvas2 canvas;
-	private Graphics g;
-	private BufferedImage img;
+	private Color color;
 
-	public StraightLineListener(Canvas2 c) {
-		this.canvas = c;
-		 img = new BufferedImage(800, 600,
-				BufferedImage.TYPE_INT_ARGB);
-		g = img.getGraphics();
+	public StraightLineListener(Canvas2 canvas, Color color) {
+		this.canvas = canvas;
+		this.color = color;		 
 	}
 
 	@Override
@@ -50,17 +45,12 @@ public class StraightLineListener implements DrawListener {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		endPoint = e.getPoint();
-		canvas.imageReady(createImage());
+		Point endPoint = e.getPoint();
+		Graphics g = canvas.getImage().getGraphics();
+		g.setColor(color);;
+		g.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
 		canvas.repaint();
 		startPoint = null;
-	}
-
-	public BufferedImage createImage() {
-		g.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
-		startPoint = null;
-		endPoint = null;
-		return img;
 	}
 
 	@Override
@@ -82,12 +72,6 @@ public class StraightLineListener implements DrawListener {
 		if (startPoint != null) {
 			g.drawLine(startPoint.x, startPoint.y, movingPoint.x, movingPoint.y);
 		}
-	}
-
-	@Override
-	public void setColor(Color c) {
-		// TODO Auto-generated method stub
-		g.setColor(c);
 	}
 
 }

@@ -14,7 +14,6 @@ public class Canvas2 extends JComponent {
 	 */
 	private static final long serialVersionUID = 1L;
 	private BufferedImage image;
-	private Graphics g;
 	private Color color;
 
 	private DrawListener listener;
@@ -23,17 +22,21 @@ public class Canvas2 extends JComponent {
 //		DrawListener[] listeners = new DrawListener[6];
 //		listeners[0] = new RectangleListener(this);
 		
-		
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-		g = image.getGraphics();
 		this.color = Color.BLACK;
 		
-		setListener(new StraightLineListener(this));
+		setListener(new StraightLineListener(this, Color.BLACK));
 		
 		
 	}
 
+	public BufferedImage getImage(){
+		return image;
+	}
+	
 	public void setListener(DrawListener l) {
+		this.removeMouseListener(this.listener);
+		this.removeMouseMotionListener(this.listener);
 		this.listener = l;
 		this.addMouseListener(listener);
 		this.addMouseMotionListener(listener);
@@ -44,17 +47,11 @@ public class Canvas2 extends JComponent {
 	}
 	
 	public void setColor(Color c){
-		listener.setColor(c);
 		this.color = c;
-	}
-
-	public void imageReady(BufferedImage img) {
-		g.drawImage(img, 0, 0, null);
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
-			g.setColor(color);
 			g.drawImage(image, 0, 0, null);
 			listener.drawPreview((Graphics2D) g);
 	}
