@@ -16,7 +16,6 @@ public class ButtonsListener implements ActionListener {
 	public ButtonsListener(int i, Canvas2 canvas){
 		this.index = i;
 		this.canvas = canvas;
-		this.color = Color.BLACK;
 	}
 	
 	
@@ -25,7 +24,7 @@ public class ButtonsListener implements ActionListener {
 		// TODO Auto-generated method stub
 		switch(index){
 		case 0://pencil
-			canvas.setListener(new PencilListener());
+			canvas.setListener(new PencilListener(canvas, this.color));
 			break;
 		case 1://line
 			canvas.setListener(new StraightLineListener(canvas, color));
@@ -34,18 +33,20 @@ public class ButtonsListener implements ActionListener {
 			canvas.setListener(new RectangleListener(canvas, color));
 			break;
 		case 3://fill rect
-			
+			canvas.setListener(new FillRectListener(canvas, color));
 			break;
 		case 4://oval
-			
+			canvas.setListener(new OvalListener(canvas, color));
 			break;
 		case 5://fill oval
-			
+			canvas.setListener(new FillOvalListener(canvas, this.color));			
 			break;
 		case 6://color
-			Color background = JColorChooser.showDialog(null, "Change Color", Color.BLACK); 
-			if(background != null){
-				this.color = background;
+			Color newColor = JColorChooser.showDialog(null, "Change Color", color); 
+			if(newColor != null){
+//				this.color = background;
+				this.color = newColor;
+				canvas.setColor(color);
 			}
 			break;
 		case 7://clear

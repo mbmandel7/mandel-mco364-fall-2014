@@ -7,15 +7,16 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
-public class StraightLineListener implements DrawListener {
+public class FillRectListener implements DrawListener {
 
 	private Point startPoint;
 	private Point movingPoint;
+
 	private Canvas2 canvas;
 	private Color color;
 	private int width;
-	
-	public StraightLineListener(Canvas2 canvas, Color color) {
+
+	public FillRectListener(Canvas2 canvas, Color color) {
 		this.canvas = canvas;
 		this.color = color;
 	}
@@ -41,7 +42,7 @@ public class StraightLineListener implements DrawListener {
 	@Override
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
-		startPoint = e.getPoint();
+		this.startPoint = e.getPoint();
 	}
 
 	@Override
@@ -49,25 +50,26 @@ public class StraightLineListener implements DrawListener {
 		// TODO Auto-generated method stub
 		Point endPoint = e.getPoint();
 		Graphics g = canvas.getImage().getGraphics();
-		
-		//color
-		g.setColor(color);
-		
-		//width
+		g.setColor(this.color);
+		// width
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-		
-		g.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
-		canvas.repaint();
+		g2.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND,
+				BasicStroke.JOIN_ROUND));
+
+		int width = Math.abs(startPoint.x - endPoint.x);
+		int length = Math.abs(startPoint.y - endPoint.y);
+
+		g.fillRect(Math.min(startPoint.x, endPoint.x),
+				Math.min(startPoint.y, endPoint.y), width, length);
+
 		startPoint = null;
+		canvas.repaint();
 	}
-	
-	
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		// TODO Auto-generated method stub
-		movingPoint = e.getPoint();
+		this.movingPoint = e.getPoint();
 		canvas.repaint();
 	}
 
@@ -81,10 +83,16 @@ public class StraightLineListener implements DrawListener {
 	public void drawPreview(Graphics2D g) {
 		// TODO Auto-generated method stub
 		if (startPoint != null) {
-			g.setColor(color);
-			g.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-			
-			g.drawLine(startPoint.x, startPoint.y, movingPoint.x, movingPoint.y);
+			int width = Math.abs(startPoint.x - movingPoint.x);
+			int length = Math.abs(startPoint.y - movingPoint.y);
+
+			g.setColor(this.color);
+			// width
+			g.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND,
+					BasicStroke.JOIN_ROUND));
+			g.fillRect(Math.min(startPoint.x, movingPoint.x),
+					Math.min(startPoint.y, movingPoint.y), width, length);
+
 		}
 	}
 
@@ -93,11 +101,11 @@ public class StraightLineListener implements DrawListener {
 		// TODO Auto-generated method stub
 		this.color = c;
 	}
-	
-	@Override
-	public void setWidth(int w){
-		this.width = w;
-	}
 
+	@Override
+	public void setWidth(int width) {
+		// TODO Auto-generated method stub
+		this.width = width;
+	}
 
 }

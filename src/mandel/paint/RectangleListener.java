@@ -1,5 +1,6 @@
 package mandel.paint;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,9 +14,12 @@ public class RectangleListener implements DrawListener {
 	private Point movingPoint;
 
 	private Canvas2 canvas;
+	private Color color;
+	private int width;
 
-	public RectangleListener(Canvas2 c) {
-		this.canvas = c;
+	public RectangleListener(Canvas2 canvas, Color color) {
+		this.canvas = canvas;
+		this.color = color;
 	}
 
 	@Override
@@ -37,50 +41,28 @@ public class RectangleListener implements DrawListener {
 	public void mousePressed(MouseEvent e) {
 		// TODO Auto-generated method stub
 		this.startPoint = e.getPoint();
-		
+
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		Point endPoint = e.getPoint();		
+		Point endPoint = e.getPoint();
 		Graphics g = canvas.getImage().getGraphics();
-		
+		g.setColor(color);
+		// width
+		Graphics2D g2 = (Graphics2D) g;
+		g2.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND,
+				BasicStroke.JOIN_ROUND));
+
 		int width = Math.abs(startPoint.x - endPoint.x);
 		int length = Math.abs(startPoint.y - endPoint.y);
-		
-		if(endPoint.x < startPoint.x){//2 and 3
-			if(endPoint.y < startPoint.y){//2
-				g.drawRect(endPoint.x, endPoint.y, width, length);//2				
-			}else{//3
-				g.drawRect(endPoint.x, startPoint.y, width, length);//3				
-			}			
-		}else{
-			if(endPoint.y < startPoint.y){//4
-				g.drawRect(startPoint.x, endPoint.y, width, length);//4				
-			}else{//1
-				g.drawRect(startPoint.x, startPoint.y, width, length);//1				
-			}
-		}
+
+		g.drawRect(Math.min(startPoint.x, endPoint.x),
+				Math.min(startPoint.y, endPoint.y), width, length);
+
 		startPoint = null;
 		canvas.repaint();
-	}
-
-	public void drawRectOnCalculatedCoordinates(Point p2) {
-		Graphics g = canvas.getImage().getGraphics();
-		if(p2.x < startPoint.x){//2 and 3
-			if(p2.y < startPoint.y){//2
-				g.drawRect(p2.x, p2.y, Math.abs(startPoint.x - p2.x), Math.abs(startPoint.y - p2.y));//2				
-			}else{//3
-				g.drawRect(p2.x, startPoint.y, Math.abs(startPoint.x - p2.x), Math.abs(startPoint.y - p2.y));//3				
-			}			
-		}else{
-			if(p2.y < startPoint.y){//4
-				g.drawRect(startPoint.x, p2.y, Math.abs(startPoint.x - p2.x), Math.abs(startPoint.y - p2.y));//4				
-			}else{//1
-				g.drawRect(startPoint.x, startPoint.y, Math.abs(startPoint.x - p2.x), Math.abs(startPoint.y - p2.y));//1				
-			}
-		}
 	}
 
 	@Override
@@ -99,20 +81,28 @@ public class RectangleListener implements DrawListener {
 	public void drawPreview(Graphics2D g) {
 		// TODO Auto-generated method stub
 		if (startPoint != null) {
-			if(movingPoint.x < startPoint.x){//2 and 3
-				if(movingPoint.y < startPoint.y){//2
-					g.drawRect(movingPoint.x, movingPoint.y, Math.abs(startPoint.x - movingPoint.x), Math.abs(startPoint.y - movingPoint.y));//2				
-				}else{//3
-					g.drawRect(movingPoint.x, startPoint.y, Math.abs(startPoint.x - movingPoint.x), Math.abs(startPoint.y - movingPoint.y));//3				
-				}			
-			}else{
-				if(movingPoint.y < startPoint.y){//4
-					g.drawRect(startPoint.x, movingPoint.y, Math.abs(startPoint.x - movingPoint.x), Math.abs(startPoint.y - movingPoint.y));//4				
-				}else{//1
-					g.drawRect(startPoint.x, startPoint.y, Math.abs(startPoint.x - movingPoint.x), Math.abs(startPoint.y - movingPoint.y));//1				
-				}
-			}
+			int width = Math.abs(startPoint.x - movingPoint.x);
+			int length = Math.abs(startPoint.y - movingPoint.y);
+
+			g.setColor(color);
+			//width
+//			g.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+			g.drawRect(Math.min(startPoint.x, movingPoint.x),
+					Math.min(startPoint.y, movingPoint.y), width, length);
+
 		}
+	}
+
+	@Override
+	public void setColor(Color c) {
+		// TODO Auto-generated method stub
+		this.color = c;
+	}
+
+	@Override
+	public void setWidth(int width) {
+		// TODO Auto-generated method stub
+		this.width = width;
 	}
 
 }

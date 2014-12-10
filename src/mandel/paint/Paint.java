@@ -12,7 +12,6 @@ public class Paint extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private int width = 0;
 	private Canvas2 canvas;
-	private ColorPicker colors;
 
 	public Paint() {
 		setTitle("Paint");

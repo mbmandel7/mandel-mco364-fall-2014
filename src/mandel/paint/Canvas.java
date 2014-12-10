@@ -29,7 +29,6 @@ public class Canvas extends JComponent {
 	public Canvas() {
 		
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-		color = Color.BLACK;
 		clicked = false;
 		g = image.getGraphics();
 		g2 = (Graphics2D) g;
