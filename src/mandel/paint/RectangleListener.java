@@ -52,17 +52,12 @@ public class RectangleListener implements DrawListener {
 		g.setColor(color);
 		// width
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND,
-				BasicStroke.JOIN_ROUND));
+		g2.setStroke(new BasicStroke(this.width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 
-		int width = Math.abs(startPoint.x - endPoint.x);
-		int length = Math.abs(startPoint.y - endPoint.y);
-
-		g.drawRect(Math.min(startPoint.x, endPoint.x),
-				Math.min(startPoint.y, endPoint.y), width, length);
-
-		startPoint = null;
+		g.drawRect(getStartX(endPoint), getStartY(endPoint), getWidth(endPoint), getLength(endPoint));
 		canvas.repaint();
+		startPoint = null;
+
 	}
 
 	@Override
@@ -81,14 +76,11 @@ public class RectangleListener implements DrawListener {
 	public void drawPreview(Graphics2D g) {
 		// TODO Auto-generated method stub
 		if (startPoint != null) {
-			int width = Math.abs(startPoint.x - movingPoint.x);
-			int length = Math.abs(startPoint.y - movingPoint.y);
 
 			g.setColor(color);
-			//width
-//			g.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-			g.drawRect(Math.min(startPoint.x, movingPoint.x),
-					Math.min(startPoint.y, movingPoint.y), width, length);
+			// width
+			g.setStroke(new BasicStroke(this.width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+			g.drawRect(getStartX(movingPoint), getStartY(movingPoint), getWidth(movingPoint), getLength(movingPoint));
 
 		}
 	}
@@ -103,6 +95,22 @@ public class RectangleListener implements DrawListener {
 	public void setWidth(int width) {
 		// TODO Auto-generated method stub
 		this.width = width;
+	}
+
+	public int getWidth(Point p) {
+		return Math.abs(startPoint.x - p.x);
+	}
+
+	public int getLength(Point p) {
+		return Math.abs(startPoint.y - p.y);
+	}
+
+	public int getStartX(Point p) {
+		return Math.min(startPoint.x, p.x);
+	}
+
+	public int getStartY(Point p) {
+		return Math.min(startPoint.y, p.y);
 	}
 
 }

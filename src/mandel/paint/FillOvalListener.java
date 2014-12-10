@@ -54,15 +54,10 @@ public class FillOvalListener implements DrawListener {
 
 		// width
 		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND,
-				BasicStroke.JOIN_ROUND));
+		g2.setStroke(new BasicStroke(this.width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 
-		int width = Math.abs(startPoint.x - endPoint.x);
-		int length = Math.abs(startPoint.y - endPoint.y);
-
-		g.fillOval(Math.min(startPoint.x, endPoint.x),
-				Math.min(startPoint.y, endPoint.y), width, length);
-
+		g.fillOval(getStartX(endPoint), getStartY(endPoint), getWidth(endPoint), getLength(endPoint));
+		
 		startPoint = null;
 		canvas.repaint();
 	}
@@ -84,17 +79,29 @@ public class FillOvalListener implements DrawListener {
 	public void drawPreview(Graphics2D g) {
 		// TODO Auto-generated method stub
 		if (startPoint != null) {
-			int width = Math.abs(startPoint.x - movingPoint.x);
-			int length = Math.abs(startPoint.y - movingPoint.y);
-
+		
 			g.setColor(this.color);
 			// width
-			g.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND,
-					BasicStroke.JOIN_ROUND));
-			g.fillOval(Math.min(startPoint.x, movingPoint.x),
-					Math.min(startPoint.y, movingPoint.y), width, length);
+			g.setStroke(new BasicStroke(this.width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+			g.fillOval(getStartX(movingPoint), getStartY(movingPoint), getWidth(movingPoint), getLength(movingPoint));
 
 		}
+	}
+
+	public int getWidth(Point p) {
+		return Math.abs(startPoint.x - p.x);
+	}
+
+	public int getLength(Point p) {
+		return Math.abs(startPoint.y - p.y);
+	}
+
+	public int getStartX(Point p) {
+		return Math.min(startPoint.x, p.x);
+	}
+
+	public int getStartY(Point p) {
+		return Math.min(startPoint.y, p.y);
 	}
 
 	@Override

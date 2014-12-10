@@ -10,6 +10,7 @@ public class ButtonPanel extends JPanel{
 	
 	private JButton[] buttons;
 	private int numButtons;
+	private JLabel width;
 	
 	public ButtonPanel(final Canvas2 canvas){
 		
@@ -38,8 +39,12 @@ public class ButtonPanel extends JPanel{
 			add(buttons[i]);
 		}
 		
-		JLabel width = new JLabel("");
+		width = new JLabel("");
 		add(width);
+	}
+	
+	public void setWidthText(int w){
+		width.setText("WIDTH: " + w);
 	}
 	
 //	public Color getColor(){

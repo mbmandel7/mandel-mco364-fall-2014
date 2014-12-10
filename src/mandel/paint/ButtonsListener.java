@@ -53,6 +53,7 @@ public class ButtonsListener implements ActionListener {
 			Graphics2D g = (Graphics2D)canvas.getImage().getGraphics();
 			g.setBackground(new Color(255, 255, 255, 0));
 			g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+			canvas.repaint();
 			break;
 			
 		}

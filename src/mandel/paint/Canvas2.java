@@ -62,7 +62,6 @@ public class Canvas2 extends JComponent {
 		return this.listener;
 	}
 
-
 	@Override
 	public void paintComponent(Graphics g) {
 		g.drawImage(image, 0, 0, null);
