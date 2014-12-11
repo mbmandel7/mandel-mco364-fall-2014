@@ -15,26 +15,12 @@ public class ButtonPanel extends JPanel{
 	public ButtonPanel(final Canvas2 canvas){
 		
 		
-		numButtons = 8;
+		numButtons = 9;
 		buttons = new JButton[numButtons];
-		String[] buttonsText = {"Pencil", "Line", "Rectangle", "Fill Rect", "Oval", "Fill Oval", "Color", "Clear"};
-//		DrawListener[] listeners = {new PencilListener(), new StraightLineListener(canvas, color), new RectangleListener(canvas, color)};
+		String[] buttonsText = {"Pencil", "Line", "Rectangle", "Fill Rect", "Oval", "Fill Oval", "Fill Bucket", "Color", "Clear"};
 		
 		for(int i = 0; i < numButtons; i++){
-			buttons[i] = new JButton(buttonsText[i]);
-//			buttons[i].addActionListener(new ActionListener(){
-//
-//				@Override
-//				public void actionPerformed(ActionEvent arg0) {
-//					// TODO Auto-generated method stub
-//					final int a = i;
-//					final DrawListener l = listeners[i];
-//					canvas.setListener(listeners[i]);
-//				}
-//				
-//			});
-			
-			
+			buttons[i] = new JButton(buttonsText[i]);	
 			buttons[i].addActionListener(new ButtonsListener(i, canvas));
 			add(buttons[i]);
 		}

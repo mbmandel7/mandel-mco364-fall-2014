@@ -1,11 +1,13 @@
 package mandel.paint;
 
+import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JColorChooser;
+import javax.swing.JOptionPane;
 
 public class ButtonsListener implements ActionListener {
 
@@ -41,7 +43,15 @@ public class ButtonsListener implements ActionListener {
 		case 5://fill oval
 			canvas.setListener(new FillOvalListener(canvas, this.color));			
 			break;
-		case 6://color
+		case 6://fill bucket
+			try {
+				canvas.setListener(new BucketFillListener(canvas, this.color));
+			} catch (AWTException e1) {
+				// TODO Auto-generated catch block
+				JOptionPane.showMessageDialog(null, "Bucket Fill does not work");
+			}
+			break;
+		case 7://color
 			Color newColor = JColorChooser.showDialog(null, "Change Color", color); 
 			if(newColor != null){
 //				this.color = background;
@@ -49,7 +59,7 @@ public class ButtonsListener implements ActionListener {
 				canvas.setColor(color);
 			}
 			break;
-		case 7://clear
+		case 8://clear
 			Graphics2D g = (Graphics2D)canvas.getImage().getGraphics();
 			g.setBackground(new Color(255, 255, 255, 0));
 			g.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
