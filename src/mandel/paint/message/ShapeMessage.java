@@ -1,9 +1,9 @@
 package mandel.paint.message;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-import com.sun.prism.BasicStroke;
 
 public class ShapeMessage implements PaintMessage {
 	
@@ -33,8 +33,8 @@ public class ShapeMessage implements PaintMessage {
 		// TODO Auto-generated method stub
 
 		g.setColor(new Color(this.color));
-//		g.setStroke(new BasicStroke(this.stroke, BasicStroke.CAP_ROUND,
-//				BasicStroke.JOIN_ROUND));
+		g.setStroke(new BasicStroke(this.stroke, BasicStroke.CAP_ROUND,
+				BasicStroke.JOIN_ROUND));
 		switch(type){
 		case "RECT":
 			if(fill){
