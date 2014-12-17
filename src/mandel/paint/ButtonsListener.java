@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.OutputStream;
 
 import javax.swing.JColorChooser;
 import javax.swing.JOptionPane;
@@ -14,10 +15,12 @@ public class ButtonsListener implements ActionListener {
 	private Canvas2 canvas;
 	private int index;
 	private Color color;
+	private OutputStream out;
 	
-	public ButtonsListener(int i, Canvas2 canvas){
+	public ButtonsListener(int i, Canvas2 canvas, OutputStream out){
 		this.index = i;
 		this.canvas = canvas;
+		this.out = out;
 	}
 	
 	
@@ -29,7 +32,7 @@ public class ButtonsListener implements ActionListener {
 			canvas.setListener(new PencilListener(canvas, this.color));
 			break;
 		case 1://line
-			canvas.setListener(new StraightLineListener(canvas, color));
+			canvas.setListener(new StraightLineListener(canvas, color, out));
 			break;
 		case 2://rect
 			canvas.setListener(new RectangleListener(canvas, color));

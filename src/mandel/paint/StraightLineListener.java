@@ -6,6 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.io.OutputStream;
 
 public class StraightLineListener implements DrawListener {
 
@@ -14,10 +16,12 @@ public class StraightLineListener implements DrawListener {
 	private Canvas2 canvas;
 	private Color color;
 	private int width;
+	private OutputStream out;
 	
-	public StraightLineListener(Canvas2 canvas, Color color) {
+	public StraightLineListener(Canvas2 canvas, Color color, OutputStream out) {
 		this.canvas = canvas;
 		this.color = color;
+		this.out = out;
 	}
 
 	@Override
@@ -59,6 +63,15 @@ public class StraightLineListener implements DrawListener {
 		
 		g.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
 		canvas.repaint();
+		
+		String message = startPoint.x + " " + startPoint.y + " " + endPoint.x + " " + endPoint.y + " " +  color + " " + width +  " \n";
+		try {
+			out.write(message.getBytes());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		startPoint = null;
 	}
 	
