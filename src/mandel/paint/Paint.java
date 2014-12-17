@@ -1,8 +1,16 @@
 package mandel.paint;
 
 import java.awt.BorderLayout;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.UnknownHostException;
 
 import javax.swing.JFrame;
+
+import mandel.paint.message.PaintMessage;
+import mandel.paint.message.PaintMessageFactory;
 
 //draw straight line, pencil, rectangle, oval, fillrect, filloval, clear screen
 
@@ -12,49 +20,44 @@ public class Paint extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private int width = 0;
 	private Canvas2 canvas;
+	private Connection con;
 
-	public Paint() {
+	public Paint() throws UnknownHostException, IOException {
 		setTitle("Paint");
 		setSize(800, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
+		con = new Connection();
 		
-		canvas = new Canvas2();
+		canvas = new Canvas2(con);
 		add(canvas);
 		
-		add(new ButtonPanel(canvas), BorderLayout.NORTH);
+		add(new ButtonPanel(canvas, con.getSocket().getOutputStream()), BorderLayout.NORTH);
 		
-		
-		
-//		//draw with pencil
-//		PencilListener draw = new PencilListener(canvas);
-//		canvas.addMouseMotionListener(draw);
-//		
-//		ClickListener click = new ClickListener(canvas);
-//		canvas.addMouseListener(click);
-//		
-//		//change width
-//		WidthListener width = new WidthListener(this);
-//		canvas.addMouseWheelListener(width);
-//		
-//		//change color
-//		colors = new ColorPicker(canvas);
-//		add(colors, BorderLayout.NORTH);
 	}
 	
-//	public void setLineWidth(int w){
-//		if(width + w > 0){
-//			width += w;
-//		}		
-//		canvas.setWidth(width);
-//		buttons.setWidthText("WIDTH: " + width);
-//	}
+	public Connection getConnection(){
+		return con;
+	}
+	
+	public void networkDraw(PaintMessage msg){
+		canvas.networkDraw(msg);
+	}
 
-	public static void main(String args[]) {
+	public static void main(String args[]) throws UnknownHostException, IOException {
 		Paint p = new Paint();
 		p.setVisible(true);
 
+		PaintMessageFactory factory = new PaintMessageFactory();
+		
+		InputStream in = p.getConnection().getSocket().getInputStream();
+		BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+		String line;
+		while((line = reader.readLine()) != null){
+			PaintMessage message = factory.getMessage(line);
+			p.networkDraw(message);
+		}
 	}
-
+	
 }

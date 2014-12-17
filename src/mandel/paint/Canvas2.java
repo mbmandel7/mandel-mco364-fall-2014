@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.JComponent;
 
+import mandel.paint.message.PaintMessage;
+
 public class Canvas2 extends JComponent {
 
 	/**
@@ -19,7 +21,7 @@ public class Canvas2 extends JComponent {
 	private Color color;
 	private int width;
 
-	public Canvas2() {
+	public Canvas2(Connection con) {
 		
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 
@@ -55,7 +57,10 @@ public class Canvas2 extends JComponent {
 			width += w;
 		}		
 		this.listener.setWidth(width);
-//		buttons.setWidthText("WIDTH: " + width);
+	}
+	
+	public void networkDraw(PaintMessage msg){		
+		msg.apply((Graphics2D)image.getGraphics());
 	}
 	
 	public DrawListener getListener() {
