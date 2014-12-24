@@ -1,5 +1,6 @@
 package mandel.paint;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -13,7 +14,11 @@ public class Canvas2 extends JComponent {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private BufferedImage image;
+	private BufferedImage image0;
+	private BufferedImage image1;
+	private BufferedImage image2;
+	private BufferedImage image3;
+	private BufferedImage currentImage;
 
 	private DrawListener listener;
 	private Color color;
@@ -28,14 +33,15 @@ public class Canvas2 extends JComponent {
 		WidthListener width = new WidthListener(this);
 		this.addMouseWheelListener(width);
 
+		add(new LayerPanel(this), BorderLayout.WEST);
 	}
 
 	public void setImage(BufferedImage img){
-		this.image = img;
+		this.currentImage = img;
 	}
 	
 	public BufferedImage getImage() {
-		return image;
+		return currentImage;
 	}
 
 	public void setListener(DrawListener l) {
