@@ -15,9 +15,10 @@ public class ButtonsListener implements ActionListener {
 	private int index;
 	private Color color;
 	
-	public ButtonsListener(int i, Canvas2 canvas){
+	public ButtonsListener(int i, Canvas2 canvas, Color color){
 		this.index = i;
 		this.canvas = canvas;
+		this.color = color;
 	}
 	
 	

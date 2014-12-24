@@ -1,5 +1,7 @@
 package mandel.paint;
 
+import java.awt.Color;
+
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -12,7 +14,7 @@ public class ButtonPanel extends JPanel{
 	private int numButtons;
 	private JLabel width;
 	
-	public ButtonPanel(final Canvas2 canvas){
+	public ButtonPanel(final Canvas2 canvas, Color color){
 		
 		
 		numButtons = 9;
@@ -21,7 +23,7 @@ public class ButtonPanel extends JPanel{
 		
 		for(int i = 0; i < numButtons; i++){
 			buttons[i] = new JButton(buttonsText[i]);	
-			buttons[i].addActionListener(new ButtonsListener(i, canvas));
+			buttons[i].addActionListener(new ButtonsListener(i, canvas, color));
 			add(buttons[i]);
 		}
 		
