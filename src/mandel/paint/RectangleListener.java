@@ -6,6 +6,10 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import mandel.paint.message.ShapeMessage;
 
 public class RectangleListener implements DrawListener {
 
@@ -16,9 +20,12 @@ public class RectangleListener implements DrawListener {
 	private Color color;
 	private int width;
 
-	public RectangleListener(Canvas2 canvas, Color color) {
+	private NetworkModule net;
+
+	public RectangleListener(Canvas2 canvas, Color color, NetworkModule net) {
 		this.canvas = canvas;
 		this.color = color;
+		this.net = net;
 	}
 
 	@Override
@@ -46,17 +53,16 @@ public class RectangleListener implements DrawListener {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		Point endPoint = e.getPoint();
-		Graphics g = canvas.getImage().getGraphics();
-		g.setColor(color);
-		// width
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(this.width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
+		Point endPoint = e.getPoint();		
+		int rectWidth = getWidth(endPoint);
+		int rectLength = getLength(endPoint);
 
-		g.drawRect(getStartX(endPoint), getStartY(endPoint), getWidth(endPoint), getLength(endPoint));
-		canvas.repaint();
+		ShapeMessage message = new ShapeMessage("RECT", startPoint.x, startPoint.y, rectWidth, rectLength,
+				color.getRGB(), width, false);
+		System.out.println(message.toString());
+		net.sendMessage(message);
+
 		startPoint = null;
-
 	}
 
 	@Override

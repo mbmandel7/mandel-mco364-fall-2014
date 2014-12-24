@@ -7,7 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
-import java.io.OutputStream;
+
+import mandel.paint.message.LineMessage;
 
 public class StraightLineListener implements DrawListener {
 
@@ -16,12 +17,12 @@ public class StraightLineListener implements DrawListener {
 	private Canvas2 canvas;
 	private Color color;
 	private int width;
-	private OutputStream out;
+	private NetworkModule net;
 	
-	public StraightLineListener(Canvas2 canvas, Color color, OutputStream out) {
+	public StraightLineListener(Canvas2 canvas, Color color, NetworkModule net) {
 		this.canvas = canvas;
 		this.color = color;
-		this.out = out;
+		this.net = net;
 	}
 
 	@Override
@@ -52,25 +53,10 @@ public class StraightLineListener implements DrawListener {
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		Point endPoint = e.getPoint();
-		Graphics g = canvas.getImage().getGraphics();
 		
-		//color
-		g.setColor(color);
-		
-		//width
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-		
-		g.drawLine(startPoint.x, startPoint.y, endPoint.x, endPoint.y);
-		canvas.repaint();
-		
-		String message = startPoint.x + " " + startPoint.y + " " + endPoint.x + " " + endPoint.y + " " +  color + " " + width +  " \n";
-		try {
-			out.write(message.getBytes());
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		LineMessage message = new LineMessage("LINE", startPoint.x, startPoint.y, endPoint.x, endPoint.y, color.getRGB(), width);
+		System.out.println(message.toString());
+		net.sendMessage(message);
 		
 		startPoint = null;
 	}

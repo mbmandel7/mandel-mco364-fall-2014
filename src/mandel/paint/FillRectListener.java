@@ -2,10 +2,11 @@ package mandel.paint;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+
+import mandel.paint.message.ShapeMessage;
 
 public class FillRectListener implements DrawListener {
 
@@ -16,9 +17,12 @@ public class FillRectListener implements DrawListener {
 	private Color color;
 	private int width;
 
-	public FillRectListener(Canvas2 canvas, Color color) {
+	private NetworkModule net;
+	
+	public FillRectListener(Canvas2 canvas, Color color, NetworkModule net) {
 		this.canvas = canvas;
 		this.color = color;
+		this.net = net;
 	}
 
 	@Override
@@ -48,15 +52,17 @@ public class FillRectListener implements DrawListener {
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		Point endPoint = e.getPoint();
-		Graphics g = canvas.getImage().getGraphics();
-		g.setColor(this.color);
-		// width
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(this.width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-
-		g.fillRect(getStartX(endPoint), getStartY(endPoint), getWidth(endPoint), getLength(endPoint));
+		
+		int rectWidth = getWidth(endPoint);
+		int rectLength = getLength(endPoint);
+		
+		ShapeMessage message = new ShapeMessage("RECT", startPoint.x, startPoint.y, rectWidth, rectLength, color.getRGB(), width, true);
+		System.out.println(message);
+		
+		net.sendMessage(message);
+		
 		startPoint = null;
-		canvas.repaint();
+		
 	}
 
 	@Override

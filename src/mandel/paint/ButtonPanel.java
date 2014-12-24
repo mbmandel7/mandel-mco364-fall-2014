@@ -14,7 +14,7 @@ public class ButtonPanel extends JPanel{
 	private int numButtons;
 	private JLabel width;
 	
-	public ButtonPanel(final Canvas2 canvas, OutputStream out){
+	public ButtonPanel(final Canvas2 canvas, NetworkModule net){
 		
 		
 		numButtons = 9;
@@ -23,7 +23,7 @@ public class ButtonPanel extends JPanel{
 		
 		for(int i = 0; i < numButtons; i++){
 			buttons[i] = new JButton(buttonsText[i]);	
-			buttons[i].addActionListener(new ButtonsListener(i, canvas, out));
+			buttons[i].addActionListener(new ButtonsListener(i, canvas, net));
 			add(buttons[i]);
 		}
 		

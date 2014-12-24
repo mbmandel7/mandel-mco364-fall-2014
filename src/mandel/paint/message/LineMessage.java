@@ -12,9 +12,11 @@ public class LineMessage implements PaintMessage {
 	private int y2;
 	private int color;
 	private int stroke;
-	
-	public LineMessage(int x1, int y1, int x2, int y2, int color, int stroke) {
+	private String line;
+
+	public LineMessage(String line, int x1, int y1, int x2, int y2, int color, int stroke) {
 		super();
+		this.line = line;
 		this.x1 = x1;
 		this.x2 = x2;
 		this.y1 = y1;
@@ -27,9 +29,14 @@ public class LineMessage implements PaintMessage {
 	public void apply(Graphics2D g) {
 		// TODO Auto-generated method stub
 		g.setColor(new Color(this.color));
-		g.setStroke(new BasicStroke(this.stroke, BasicStroke.CAP_ROUND,
-				BasicStroke.JOIN_ROUND));
+		g.setStroke(new BasicStroke(this.stroke, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		g.drawLine(x1, y1, x2, y2);
 
+	}
+
+	@Override
+	public String toString() {
+		return "Line " + x1 + " " + y1 + " " + x2 + " " + y2 + " " + color + " "
+				+ stroke + " " + line + "\n";
 	}
 }

@@ -6,6 +6,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 
 public class OvalListener implements DrawListener {
 
@@ -59,8 +60,12 @@ public class OvalListener implements DrawListener {
 
 		g.drawOval(getStartX(endPoint), getStartY(endPoint), getWidth(endPoint), getLength(endPoint));
 
-		startPoint = null;
 		canvas.repaint();
+		
+		
+		
+		startPoint = null;
+		
 	}
 
 	@Override
