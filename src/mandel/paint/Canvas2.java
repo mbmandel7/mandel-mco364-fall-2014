@@ -21,8 +21,7 @@ public class Canvas2 extends JComponent {
 
 	public Canvas2() {
 		
-		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
-
+		
 		this.color = Color.BLACK;
 		setListener(new PencilListener(this, color));
 		
@@ -31,6 +30,10 @@ public class Canvas2 extends JComponent {
 
 	}
 
+	public void setImage(BufferedImage img){
+		this.image = img;
+	}
+	
 	public BufferedImage getImage() {
 		return image;
 	}
