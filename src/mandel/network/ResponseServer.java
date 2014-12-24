@@ -10,6 +10,19 @@ import java.net.Socket;
 
 public class ResponseServer {
 	
+	public class ResponseThread {
+
+		public ResponseThread(Socket socket) {
+			// TODO Auto-generated constructor stub
+		}
+
+		public void start() {
+			// TODO Auto-generated method stub
+			
+		}
+
+	}
+
 	public static void main(String args[]) throws IOException {
 
 		// makes this program listen
