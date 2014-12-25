@@ -25,7 +25,9 @@ public class Paint extends JFrame {
 		
 		add(new ButtonPanel(canvas, Color.BLACK), BorderLayout.NORTH);	
 		
-		add(new LayerPanel(canvas), BorderLayout.WEST);
+		LayerPanel layers = new LayerPanel(canvas);
+		add(layers, BorderLayout.WEST);
+		
 	}
 
 	public static void main(String args[]) {

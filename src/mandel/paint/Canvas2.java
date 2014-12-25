@@ -14,32 +14,36 @@ public class Canvas2 extends JComponent {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private BufferedImage image0;
-	private BufferedImage image1;
-	private BufferedImage image2;
-	private BufferedImage image3;
 	private BufferedImage currentImage;
+	private BufferedImage[] images;
 
 	private DrawListener listener;
 	private Color color;
 	private int width;
 
 	public Canvas2() {
-		
-		
+
 		this.color = Color.BLACK;
 		setListener(new PencilListener(this, color));
-		
+
 		WidthListener width = new WidthListener(this);
 		this.addMouseWheelListener(width);
 
-		add(new LayerPanel(this), BorderLayout.WEST);
-	}
+//		LayerPanel layers = new LayerPanel(this);
+//		add(layers, BorderLayout.WEST);
 
-	public void setImage(BufferedImage img){
-		this.currentImage = img;
+//		images = layers.getImages();
+//		setImage(images[0]);
 	}
 	
+	public void setImages(BufferedImage[] images){
+		this.images = images;
+	}
+
+	public void setImage(BufferedImage img) {
+		this.currentImage = img;
+	}
+
 	public BufferedImage getImage() {
 		return currentImage;
 	}
@@ -53,27 +57,29 @@ public class Canvas2 extends JComponent {
 		this.addMouseListener(listener);
 		this.addMouseMotionListener(listener);
 	}
-	
-	public void setColor(Color c){
+
+	public void setColor(Color c) {
 		this.color = c;
 		this.listener.setColor(color);
-	}	
-
-	public void setWidth(int w){
-		if(width + w > 0){
-			width += w;
-		}		
-		this.listener.setWidth(width);
-//		buttons.setWidthText("WIDTH: " + width);
 	}
-	
+
+	public void setWidth(int w) {
+		if (width + w > 0) {
+			width += w;
+		}
+		this.listener.setWidth(width);
+		// buttons.setWidthText("WIDTH: " + width);
+	}
+
 	public DrawListener getListener() {
 		return this.listener;
 	}
 
 	@Override
 	public void paintComponent(Graphics g) {
-		g.drawImage(image, 0, 0, null);
+		for (BufferedImage image : images) {
+			g.drawImage(image, 0, 0, null);
+		}
 		listener.drawPreview((Graphics2D) g);
 	}
 
