@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
+import mandel.paint.message.LineMessage;
+
 public class PencilListener implements DrawListener {
 
 	private Point oldPoint;
@@ -15,10 +17,12 @@ public class PencilListener implements DrawListener {
 	private Canvas2 canvas;
 	private Color color;
 	private int width;
+	private NetworkModule net;
 
-	public PencilListener(Canvas2 canvas, Color color) {
+	public PencilListener(Canvas2 canvas, Color color, NetworkModule net) {
 		this.canvas = canvas;
 		this.color = color;
+		this.net = net;
 	}
 
 	@Override
@@ -49,15 +53,12 @@ public class PencilListener implements DrawListener {
 	public void mouseReleased(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		newPoint = arg0.getPoint();
-		Graphics g = canvas.getImage().getGraphics();
-		g.setColor(this.color);
-		// width
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND,
-				BasicStroke.JOIN_ROUND));
-
-		g.drawLine(oldPoint.x, oldPoint.y, newPoint.x, newPoint.y);
-		canvas.repaint();
+		
+		LineMessage message = new LineMessage("LINE", oldPoint.x,
+				oldPoint.y, newPoint.x, newPoint.y, color.getRGB(), width);
+		System.out.println(message.toString());
+		net.sendMessage(message);
+		
 		oldPoint = null;
 		newPoint = null;
 	}
@@ -66,15 +67,13 @@ public class PencilListener implements DrawListener {
 	public void mouseDragged(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 		newPoint = arg0.getPoint();
-		Graphics g = canvas.getImage().getGraphics();
-		g.setColor(this.color);
-		// width
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND,
-				BasicStroke.JOIN_ROUND));
+				
+		LineMessage message = new LineMessage("LINE", oldPoint.x,
+				oldPoint.y, newPoint.x, newPoint.y, color.getRGB(), width);
+		System.out.println(message.toString());
+		net.sendMessage(message);
 		
-		g.drawLine(oldPoint.x, oldPoint.y, newPoint.x, newPoint.y);
-		canvas.repaint();
+		
 		oldPoint = newPoint;
 		newPoint = null;
 	}

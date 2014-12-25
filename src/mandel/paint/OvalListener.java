@@ -6,7 +6,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
-import java.io.IOException;
+
+import mandel.paint.message.ShapeMessage;
 
 public class OvalListener implements DrawListener {
 
@@ -17,9 +18,12 @@ public class OvalListener implements DrawListener {
 	private Color color;
 	private int width;
 
-	public OvalListener(Canvas2 canvas, Color color) {
+	private NetworkModule net;
+
+	public OvalListener(Canvas2 canvas, Color color, NetworkModule net) {
 		this.canvas = canvas;
 		this.color = color;
+		this.net = net;
 	}
 
 	@Override
@@ -50,22 +54,15 @@ public class OvalListener implements DrawListener {
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		Point endPoint = e.getPoint();
-		Graphics g = canvas.getImage().getGraphics();
-		g.setColor(color);
-
-		// width
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(this.width, BasicStroke.CAP_ROUND,
-				BasicStroke.JOIN_ROUND));
-
-		g.drawOval(getStartX(endPoint), getStartY(endPoint), getWidth(endPoint), getLength(endPoint));
-
-		canvas.repaint();
 		
-		
-		
+		ShapeMessage message = new ShapeMessage("OVAL", getStartX(endPoint),
+				getStartY(endPoint), getWidth(endPoint), getLength(endPoint),
+				color.getRGB(), this.width, false);
+		System.out.println(message.toString());
+		net.sendMessage(message);
+
 		startPoint = null;
-		
+
 	}
 
 	@Override
@@ -85,11 +82,13 @@ public class OvalListener implements DrawListener {
 	public void drawPreview(Graphics2D g) {
 		// TODO Auto-generated method stub
 		if (startPoint != null) {
-	
-			g.setColor(color);			
-			g.setStroke(new BasicStroke(this.width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-			
-			g.drawOval(getStartX(movingPoint), getStartY(movingPoint), getWidth(movingPoint), getLength(movingPoint));
+
+			g.setColor(color);
+			g.setStroke(new BasicStroke(this.width, BasicStroke.CAP_ROUND,
+					BasicStroke.JOIN_ROUND));
+
+			g.drawOval(getStartX(movingPoint), getStartY(movingPoint),
+					getWidth(movingPoint), getLength(movingPoint));
 
 		}
 	}

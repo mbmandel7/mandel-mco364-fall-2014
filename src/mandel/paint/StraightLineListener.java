@@ -18,7 +18,7 @@ public class StraightLineListener implements DrawListener {
 	private Color color;
 	private int width;
 	private NetworkModule net;
-	
+
 	public StraightLineListener(Canvas2 canvas, Color color, NetworkModule net) {
 		this.canvas = canvas;
 		this.color = color;
@@ -53,15 +53,14 @@ public class StraightLineListener implements DrawListener {
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		Point endPoint = e.getPoint();
-		
-		LineMessage message = new LineMessage("LINE", startPoint.x, startPoint.y, endPoint.x, endPoint.y, color.getRGB(), width);
+
+		LineMessage message = new LineMessage("LINE", startPoint.x,
+				startPoint.y, endPoint.x, endPoint.y, color.getRGB(), width);
 		System.out.println(message.toString());
 		net.sendMessage(message);
-		
+
 		startPoint = null;
 	}
-	
-	
 
 	@Override
 	public void mouseDragged(MouseEvent e) {
@@ -81,8 +80,9 @@ public class StraightLineListener implements DrawListener {
 		// TODO Auto-generated method stub
 		if (startPoint != null) {
 			g.setColor(color);
-			g.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-			
+			g.setStroke(new BasicStroke(width, BasicStroke.CAP_ROUND,
+					BasicStroke.JOIN_ROUND));
+
 			g.drawLine(startPoint.x, startPoint.y, movingPoint.x, movingPoint.y);
 		}
 	}
@@ -92,11 +92,10 @@ public class StraightLineListener implements DrawListener {
 		// TODO Auto-generated method stub
 		this.color = c;
 	}
-	
+
 	@Override
-	public void setWidth(int w){
+	public void setWidth(int w) {
 		this.width = w;
 	}
-
 
 }

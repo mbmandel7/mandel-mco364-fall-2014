@@ -7,6 +7,8 @@ import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
 
+import mandel.paint.message.ShapeMessage;
+
 public class FillOvalListener implements DrawListener {
 
 	private Point startPoint;
@@ -15,10 +17,13 @@ public class FillOvalListener implements DrawListener {
 	private Canvas2 canvas;
 	private Color color;
 	private int width;
+	
+	private NetworkModule net;
 
-	public FillOvalListener(Canvas2 canvas, Color color) {
+	public FillOvalListener(Canvas2 canvas, Color color, NetworkModule net) {
 		this.canvas = canvas;
 		this.color = color;
+		this.net = net;
 	}
 
 	@Override
@@ -49,17 +54,15 @@ public class FillOvalListener implements DrawListener {
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		Point endPoint = e.getPoint();
-		Graphics g = canvas.getImage().getGraphics();
-		g.setColor(this.color);
+		
+		ShapeMessage message = new ShapeMessage("OVAL", getStartX(endPoint),
+				getStartY(endPoint), getWidth(endPoint), getLength(endPoint),
+				color.getRGB(), this.width, true);
+		System.out.println(message.toString());
+		net.sendMessage(message);
 
-		// width
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setStroke(new BasicStroke(this.width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-
-		g.fillOval(getStartX(endPoint), getStartY(endPoint), getWidth(endPoint), getLength(endPoint));
 		
 		startPoint = null;
-		canvas.repaint();
 	}
 
 	@Override

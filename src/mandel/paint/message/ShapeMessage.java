@@ -4,9 +4,8 @@ import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics2D;
 
-
 public class ShapeMessage implements PaintMessage {
-	
+
 	private String type;
 	private int x;
 	private int y;
@@ -15,8 +14,9 @@ public class ShapeMessage implements PaintMessage {
 	private int color;
 	private int stroke;
 	private boolean fill;
-	
-	public ShapeMessage(String type, int x, int y, int width, int height, int color, int stroke, boolean fill) {
+
+	public ShapeMessage(String type, int x, int y, int width, int height,
+			int color, int stroke, boolean fill) {
 		super();
 		this.type = type;
 		this.x = x;
@@ -35,30 +35,29 @@ public class ShapeMessage implements PaintMessage {
 		g.setColor(new Color(this.color));
 		g.setStroke(new BasicStroke(this.stroke, BasicStroke.CAP_ROUND,
 				BasicStroke.JOIN_ROUND));
-		switch(type){
+		switch (type) {
 		case "RECT":
-			if(fill){
+			if (fill) {
 				g.fillRect(x, y, width, height);
-			}else{
+			} else {
 				g.drawRect(x, y, width, height);
 			}
 			break;
 		case "OVAL":
-			if(fill){
+			if (fill) {
 				g.fillOval(x, y, width, height);
-			}else{
+			} else {
 				g.drawOval(x, y, width, height);
 			}
 			break;
 		}
 
-
 	}
 
 	@Override
 	public String toString() {
-		return type + " " + x + " " + y + " " + width + " " + height
-				+ " " + color + " " + stroke + " " + fill + "\n";
+		return type + " " + x + " " + y + " " + width + " " + height + " "
+				+ color + " " + stroke + " " + fill + "\n";
 	}
 
 }

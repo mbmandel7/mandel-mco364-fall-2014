@@ -28,7 +28,7 @@ public class ButtonsListener implements ActionListener {
 		// TODO Auto-generated method stub
 		switch(index){
 		case 0://pencil
-			canvas.setListener(new PencilListener(canvas, this.color));
+			canvas.setListener(new PencilListener(canvas, this.color, net));
 			break;
 		case 1://line
 			canvas.setListener(new StraightLineListener(canvas, color, net));
@@ -40,10 +40,10 @@ public class ButtonsListener implements ActionListener {
 			canvas.setListener(new FillRectListener(canvas, color, net));
 			break;
 		case 4://oval
-			canvas.setListener(new OvalListener(canvas, color));
+			canvas.setListener(new OvalListener(canvas, color, net));
 			break;
 		case 5://fill oval
-			canvas.setListener(new FillOvalListener(canvas, this.color));			
+			canvas.setListener(new FillOvalListener(canvas, this.color, net));			
 			break;
 		case 6://fill bucket
 			try {

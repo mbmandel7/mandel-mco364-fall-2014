@@ -16,7 +16,8 @@ public class Connection {
 	private Socket socket;
 	
 	public Connection() throws UnknownHostException, IOException{
-		socket = new Socket("192.168.117.107", 3773);		
+//		socket = new Socket("192.168.117.107", 3773);	
+		socket = new Socket("192.168.117.50", 3773);	
 	}
 	
 	public Socket getSocket(){

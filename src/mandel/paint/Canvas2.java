@@ -26,7 +26,7 @@ public class Canvas2 extends JComponent {
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 
 		this.color = Color.BLACK;
-		setListener(new PencilListener(this, color));
+//		setListener(new PencilListener(this, color));
 		
 		WidthListener width = new WidthListener(this);
 		this.addMouseWheelListener(width);

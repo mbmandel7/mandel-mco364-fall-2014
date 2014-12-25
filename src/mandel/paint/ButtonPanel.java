@@ -1,6 +1,6 @@
 package mandel.paint;
 
-import java.io.OutputStream;
+import java.awt.Color;
 
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -29,6 +29,8 @@ public class ButtonPanel extends JPanel{
 		
 		width = new JLabel("");
 		add(width);
+		
+		canvas.setListener(new PencilListener(canvas, Color.BLACK, net));
 	}
 	
 	public void setWidthText(int w){

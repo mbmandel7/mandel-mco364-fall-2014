@@ -53,12 +53,13 @@ public class RectangleListener implements DrawListener {
 	@Override
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		Point endPoint = e.getPoint();		
+		Point endPoint = e.getPoint();
 		int rectWidth = getWidth(endPoint);
 		int rectLength = getLength(endPoint);
 
-		ShapeMessage message = new ShapeMessage("RECT", startPoint.x, startPoint.y, rectWidth, rectLength,
-				color.getRGB(), width, false);
+		ShapeMessage message = new ShapeMessage("RECT", startPoint.x,
+				startPoint.y, rectWidth, rectLength, color.getRGB(), width,
+				false);
 		System.out.println(message.toString());
 		net.sendMessage(message);
 
@@ -84,8 +85,10 @@ public class RectangleListener implements DrawListener {
 
 			g.setColor(color);
 			// width
-			g.setStroke(new BasicStroke(this.width, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-			g.drawRect(getStartX(movingPoint), getStartY(movingPoint), getWidth(movingPoint), getLength(movingPoint));
+			g.setStroke(new BasicStroke(this.width, BasicStroke.CAP_ROUND,
+					BasicStroke.JOIN_ROUND));
+			g.drawRect(getStartX(movingPoint), getStartY(movingPoint),
+					getWidth(movingPoint), getLength(movingPoint));
 
 		}
 	}

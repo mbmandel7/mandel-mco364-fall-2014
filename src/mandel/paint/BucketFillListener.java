@@ -4,60 +4,95 @@ import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
+import java.awt.Polygon;
 import java.awt.Robot;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.util.Stack;
+
+import javax.swing.JOptionPane;
+
+import mandel.paint.message.BucketFillMessage;
 
 public class BucketFillListener implements DrawListener {
 
-	private Canvas2 canvas;
-
-	private Color colorFill;
-	private int colorFillInt;
-
 	private Point clickedPoint;
-	private Color clickedColor;
-
-	private Point polyStartPoint;
-
-	private Robot robot;
+	private int clickedColor;
+	private Canvas2 canvas;
+	private int colorInt;
 	
-	private Stack<Point> points;
+	private NetworkModule net;
+	
+	private Stack<Point> stack;
 
-	public BucketFillListener(Canvas2 canvas, Color color) throws AWTException {
+	public BucketFillListener(Canvas2 canvas, Color color, NetworkModule net) throws AWTException {
 		// TODO Auto-generated constructor stub
 		this.canvas = canvas;
-		this.colorFill = color;
-		this.robot = new Robot();
+		this.colorInt = color.getRGB();
+		this.net = net;
 	}
 
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
-//		Graphics2D g = (Graphics2D) canvas.getImage().getGraphics();
-//		g.setColor(colorFill);
-		
 		clickedPoint = e.getPoint();
-		clickedColor = robot.getPixelColor(clickedPoint.x, clickedPoint.y);
-		this.colorFillInt = clickedColor.getRGB();
-		
-		drawPoly();
-
+		clickedColor = canvas.getImage().getRGB(clickedPoint.x, clickedPoint.y);
+		stack = new Stack<Point>();
+		// change color
+		canvas.getImage().setRGB(clickedPoint.x, clickedPoint.y, colorInt);
+		stack.push(clickedPoint);
+		Point p;
+		while (!stack.isEmpty()) {
+			p = stack.pop();
+			up(p);
+			left(p);
+			down(p);
+			right(p);
+		}
 		canvas.repaint();
 	}
 
-	public void drawPoly() {
+	public boolean up(Point p) {
+		Point temp = new Point(p.x, p.y - 1);
+		if (temp.x < 800 && temp.y < 600 && temp.x > -1 && temp.y > -1
+				&& clickedColor == canvas.getImage().getRGB(temp.x, temp.y)) {
+			canvas.getImage().setRGB(temp.x, temp.y, colorInt);
+			stack.push(temp);
+			return true;
+		}
+		return false;
+	}
 
-		points = new Stack<Point>();
-		addPoint(clickedPoint);
-		
-		
-	}	
-	
-	public void addPoint(Point p){
-		points.add(p);
-		canvas.getImage().setRGB(p.x, p.y, colorFillInt);
+	public boolean left(Point p) {
+		Point temp = new Point(p.x - 1, p.y);
+		if (temp.x < 800 && temp.y < 600 && temp.x > -1 && temp.y > -1
+				&& clickedColor == canvas.getImage().getRGB(temp.x, temp.y)) {
+			canvas.getImage().setRGB(temp.x, temp.y, colorInt);
+			stack.push(temp);
+			return true;
+		}
+		return false;
+	}
+
+	public boolean down(Point p) {
+		Point temp = new Point(p.x, p.y + 1);
+		if (temp.x < 800 && temp.y < 600 && temp.x > -1 && temp.y > -1
+				&& clickedColor == canvas.getImage().getRGB(temp.x, temp.y)) {
+			canvas.getImage().setRGB(temp.x, temp.y, colorInt);
+			stack.push(temp);
+			return true;
+		}
+		return false;
+	}
+
+	public boolean right(Point p) {
+		Point temp = new Point(p.x + 1, p.y);
+		if (temp.x < 800 && temp.y < 600 && temp.x > -1 && temp.y > -1
+				&& clickedColor == canvas.getImage().getRGB(temp.x, temp.y)) {
+			canvas.getImage().setRGB(temp.x, temp.y, colorInt);
+			stack.push(temp);
+			return true;
+		}
+		return false;
 	}
 
 	@Override
@@ -99,14 +134,13 @@ public class BucketFillListener implements DrawListener {
 	@Override
 	public void drawPreview(Graphics2D g) {
 		// TODO Auto-generated method stub
-		// g.setColor(colorFill);
-		// g.fill(poly);
+		
 	}
 
 	@Override
 	public void setColor(Color c) {
 		// TODO Auto-generated method stub
-		this.colorFill = c;
+		this.colorInt = c.getRGB();
 	}
 
 	@Override
