@@ -4,12 +4,9 @@ import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Point;
-import java.awt.Polygon;
-import java.awt.Robot;
 import java.awt.event.MouseEvent;
 import java.util.Stack;
 
-import javax.swing.JOptionPane;
 
 public class BucketFillListener implements DrawListener {
 
@@ -38,56 +35,20 @@ public class BucketFillListener implements DrawListener {
 		Point p;
 		while (!stack.isEmpty()) {
 			p = stack.pop();
-			up(p);
-			left(p);
-			down(p);
-			right(p);
+			test(new Point(p.x, p.y-1));
+			test(new Point(p.x-1, p.y));
+			test(new Point(p.x, p.y+1));
+			test(new Point(p.x+1, p.y));
 		}
 		canvas.repaint();
 	}
 
-	public boolean up(Point p) {
-		Point temp = new Point(p.x, p.y - 1);
+	public void test(Point temp) {
 		if (temp.x < 800 && temp.y < 600 && temp.x > -1 && temp.y > -1
 				&& clickedColor == canvas.getImage().getRGB(temp.x, temp.y)) {
 			canvas.getImage().setRGB(temp.x, temp.y, colorInt);
 			stack.push(temp);
-			return true;
 		}
-		return false;
-	}
-
-	public boolean left(Point p) {
-		Point temp = new Point(p.x - 1, p.y);
-		if (temp.x < 800 && temp.y < 600 && temp.x > -1 && temp.y > -1
-				&& clickedColor == canvas.getImage().getRGB(temp.x, temp.y)) {
-			canvas.getImage().setRGB(temp.x, temp.y, colorInt);
-			stack.push(temp);
-			return true;
-		}
-		return false;
-	}
-
-	public boolean down(Point p) {
-		Point temp = new Point(p.x, p.y + 1);
-		if (temp.x < 800 && temp.y < 600 && temp.x > -1 && temp.y > -1
-				&& clickedColor == canvas.getImage().getRGB(temp.x, temp.y)) {
-			canvas.getImage().setRGB(temp.x, temp.y, colorInt);
-			stack.push(temp);
-			return true;
-		}
-		return false;
-	}
-
-	public boolean right(Point p) {
-		Point temp = new Point(p.x + 1, p.y);
-		if (temp.x < 800 && temp.y < 600 && temp.x > -1 && temp.y > -1
-				&& clickedColor == canvas.getImage().getRGB(temp.x, temp.y)) {
-			canvas.getImage().setRGB(temp.x, temp.y, colorInt);
-			stack.push(temp);
-			return true;
-		}
-		return false;
 	}
 
 	@Override
