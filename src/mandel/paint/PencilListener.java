@@ -17,8 +17,7 @@ public class PencilListener implements DrawListener {
 	private int width;
 	private NetworkModule net;
 
-	public PencilListener(Color color, NetworkModule net) {
-		this.color = color;
+	public PencilListener(NetworkModule net) {
 		this.net = net;
 	}
 

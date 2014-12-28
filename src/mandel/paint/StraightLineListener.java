@@ -19,9 +19,8 @@ public class StraightLineListener implements DrawListener {
 	private int width;
 	private NetworkModule net;
 
-	public StraightLineListener(Canvas2 canvas, Color color, NetworkModule net) {
+	public StraightLineListener(Canvas2 canvas, NetworkModule net) {
 		this.canvas = canvas;
-		this.color = color;
 		this.net = net;
 	}
 

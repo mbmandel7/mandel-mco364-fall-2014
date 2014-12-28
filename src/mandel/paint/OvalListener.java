@@ -20,9 +20,8 @@ public class OvalListener implements DrawListener {
 
 	private NetworkModule net;
 
-	public OvalListener(Canvas2 canvas, Color color, NetworkModule net) {
+	public OvalListener(Canvas2 canvas, NetworkModule net) {
 		this.canvas = canvas;
-		this.color = color;
 		this.net = net;
 	}
 

@@ -51,50 +51,6 @@ public class BucketFillListener implements DrawListener {
 		canvas.repaint();
 	}
 
-	public boolean up(Point p) {
-		Point temp = new Point(p.x, p.y - 1);
-		if (temp.x < 800 && temp.y < 600 && temp.x > -1 && temp.y > -1
-				&& clickedColor == canvas.getImage().getRGB(temp.x, temp.y)) {
-			canvas.getImage().setRGB(temp.x, temp.y, colorInt);
-			stack.push(temp);
-			return true;
-		}
-		return false;
-	}
-
-	public boolean left(Point p) {
-		Point temp = new Point(p.x - 1, p.y);
-		if (temp.x < 800 && temp.y < 600 && temp.x > -1 && temp.y > -1
-				&& clickedColor == canvas.getImage().getRGB(temp.x, temp.y)) {
-			canvas.getImage().setRGB(temp.x, temp.y, colorInt);
-			stack.push(temp);
-			return true;
-		}
-		return false;
-	}
-
-	public boolean down(Point p) {
-		Point temp = new Point(p.x, p.y + 1);
-		if (temp.x < 800 && temp.y < 600 && temp.x > -1 && temp.y > -1
-				&& clickedColor == canvas.getImage().getRGB(temp.x, temp.y)) {
-			canvas.getImage().setRGB(temp.x, temp.y, colorInt);
-			stack.push(temp);
-			return true;
-		}
-		return false;
-	}
-
-	public boolean right(Point p) {
-		Point temp = new Point(p.x + 1, p.y);
-		if (temp.x < 800 && temp.y < 600 && temp.x > -1 && temp.y > -1
-				&& clickedColor == canvas.getImage().getRGB(temp.x, temp.y)) {
-			canvas.getImage().setRGB(temp.x, temp.y, colorInt);
-			stack.push(temp);
-			return true;
-		}
-		return false;
-	}
-
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
 		// TODO Auto-generated method stub

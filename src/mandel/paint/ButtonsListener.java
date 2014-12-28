@@ -28,26 +28,26 @@ public class ButtonsListener implements ActionListener {
 		// TODO Auto-generated method stub
 		switch(index){
 		case 0://pencil
-			canvas.setListener(new PencilListener(this.color, net));
+			canvas.setListener(new PencilListener(net));
 			break;
 		case 1://line
-			canvas.setListener(new StraightLineListener(canvas, color, net));
+			canvas.setListener(new StraightLineListener(canvas, net));
 			break;
 		case 2://rect
-			canvas.setListener(new RectangleListener(canvas, color, net));
+			canvas.setListener(new RectangleListener(canvas, net));
 			break;
 		case 3://fill rect
-			canvas.setListener(new FillRectListener(canvas, color, net));
+			canvas.setListener(new FillRectListener(canvas, net));
 			break;
 		case 4://oval
-			canvas.setListener(new OvalListener(canvas, color, net));
+			canvas.setListener(new OvalListener(canvas, net));
 			break;
 		case 5://fill oval
-			canvas.setListener(new FillOvalListener(canvas, this.color, net));			
+			canvas.setListener(new FillOvalListener(canvas, net));			
 			break;
 		case 6://fill bucket
 			try {
-				canvas.setListener(new BucketFillListener(canvas, this.color));
+				canvas.setListener(new BucketFillListener(canvas));
 			} catch (AWTException e1) {
 				// TODO Auto-generated catch block
 				JOptionPane.showMessageDialog(null, "Bucket Fill does not work");

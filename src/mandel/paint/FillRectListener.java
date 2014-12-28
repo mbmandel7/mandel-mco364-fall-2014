@@ -19,9 +19,8 @@ public class FillRectListener implements DrawListener {
 
 	private NetworkModule net;
 	
-	public FillRectListener(Canvas2 canvas, Color color, NetworkModule net) {
+	public FillRectListener(Canvas2 canvas, NetworkModule net) {
 		this.canvas = canvas;
-		this.color = color;
 		this.net = net;
 	}
 

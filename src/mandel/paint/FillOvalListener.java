@@ -20,9 +20,8 @@ public class FillOvalListener implements DrawListener {
 	
 	private NetworkModule net;
 
-	public FillOvalListener(Canvas2 canvas, Color color, NetworkModule net) {
+	public FillOvalListener(Canvas2 canvas, NetworkModule net) {
 		this.canvas = canvas;
-		this.color = color;
 		this.net = net;
 	}
 

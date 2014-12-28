@@ -22,9 +22,8 @@ public class RectangleListener implements DrawListener {
 
 	private NetworkModule net;
 
-	public RectangleListener(Canvas2 canvas, Color color, NetworkModule net) {
+	public RectangleListener(Canvas2 canvas, NetworkModule net) {
 		this.canvas = canvas;
-		this.color = color;
 		this.net = net;
 	}
 
