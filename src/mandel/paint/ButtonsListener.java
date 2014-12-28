@@ -28,7 +28,7 @@ public class ButtonsListener implements ActionListener {
 		// TODO Auto-generated method stub
 		switch(index){
 		case 0://pencil
-			canvas.setListener(new PencilListener(canvas, this.color, net));
+			canvas.setListener(new PencilListener(this.color, net));
 			break;
 		case 1://line
 			canvas.setListener(new StraightLineListener(canvas, color, net));

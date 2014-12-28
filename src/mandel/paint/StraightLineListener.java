@@ -54,7 +54,7 @@ public class StraightLineListener implements DrawListener {
 		// TODO Auto-generated method stub
 		Point endPoint = e.getPoint();
 
-		LineMessage message = new LineMessage("LINE", startPoint.x,
+		LineMessage message = new LineMessage(startPoint.x,
 				startPoint.y, endPoint.x, endPoint.y, color.getRGB(), width);
 		System.out.println(message.toString());
 		net.sendMessage(message);

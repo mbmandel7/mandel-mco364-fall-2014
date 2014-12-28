@@ -1,7 +1,6 @@
 package mandel.paint;
 
 import java.awt.BorderLayout;
-import java.awt.Color;
 import java.io.IOException;
 
 import javax.swing.JFrame;
@@ -20,13 +19,13 @@ public class Paint extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 		
-		Connection conn = new Connection();
+//		Connection conn = new Connection();
+		NetworkModule net = new OnlineNetwokModule();
 		
-		
-		canvas = new Canvas2(conn);
+		canvas = new Canvas2();
 		add(canvas);
 		
-		add(new ButtonPanel(canvas, new OnlineNetwokModule(conn.getSocket().getOutputStream())), BorderLayout.NORTH);	
+		add(new ButtonPanel(canvas, net), BorderLayout.NORTH);	
 		
 		
 	}

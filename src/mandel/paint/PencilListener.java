@@ -1,8 +1,7 @@
 package mandel.paint;
 
-import java.awt.BasicStroke;
+
 import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Point;
 import java.awt.event.MouseEvent;
@@ -14,13 +13,11 @@ public class PencilListener implements DrawListener {
 	private Point oldPoint;
 	private Point newPoint;
 
-	private Canvas2 canvas;
 	private Color color;
 	private int width;
 	private NetworkModule net;
 
-	public PencilListener(Canvas2 canvas, Color color, NetworkModule net) {
-		this.canvas = canvas;
+	public PencilListener(Color color, NetworkModule net) {
 		this.color = color;
 		this.net = net;
 	}
@@ -54,7 +51,7 @@ public class PencilListener implements DrawListener {
 		// TODO Auto-generated method stub
 		newPoint = arg0.getPoint();
 		
-		LineMessage message = new LineMessage("LINE", oldPoint.x,
+		LineMessage message = new LineMessage(oldPoint.x,
 				oldPoint.y, newPoint.x, newPoint.y, color.getRGB(), width);
 		System.out.println(message.toString());
 		net.sendMessage(message);
@@ -68,7 +65,7 @@ public class PencilListener implements DrawListener {
 		// TODO Auto-generated method stub
 		newPoint = arg0.getPoint();
 				
-		LineMessage message = new LineMessage("LINE", oldPoint.x,
+		LineMessage message = new LineMessage(oldPoint.x,
 				oldPoint.y, newPoint.x, newPoint.y, color.getRGB(), width);
 		System.out.println(message.toString());
 		net.sendMessage(message);

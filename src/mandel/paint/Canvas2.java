@@ -21,7 +21,7 @@ public class Canvas2 extends JComponent {
 	private Color color;
 	private int width;
 
-	public Canvas2(Connection con) {
+	public Canvas2() {
 		
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 

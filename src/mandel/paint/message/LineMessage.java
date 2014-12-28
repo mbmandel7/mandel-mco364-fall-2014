@@ -7,16 +7,14 @@ import java.awt.Graphics2D;
 public class LineMessage implements PaintMessage {
 
 	private int x1;
-	private int y1;
 	private int x2;
+	private int y1;
 	private int y2;
 	private int color;
 	private int stroke;
-	private String line;
 
-	public LineMessage(String line, int x1, int y1, int x2, int y2, int color, int stroke) {
+	public LineMessage(int x1, int x2, int y1, int y2, int color, int stroke) {
 		super();
-		this.line = line;
 		this.x1 = x1;
 		this.x2 = x2;
 		this.y1 = y1;
@@ -30,13 +28,13 @@ public class LineMessage implements PaintMessage {
 		// TODO Auto-generated method stub
 		g.setColor(new Color(this.color));
 		g.setStroke(new BasicStroke(this.stroke, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-		g.drawLine(x1, y1, x2, y2);
+		g.drawLine(x1, x2, y1, y2);
 
 	}
 
 	@Override
 	public String toString() {
-		return "LINE " + x1 + " " + y1 + " " + x2 + " " + y2 + " " + color + " "
-				+ stroke + " " + line + "\n";
+		return "LINE " + x1 + " " + x2 + " " + y1 + " " + y2 + " " + color + " "
+				+ stroke + "\n";
 	}
 }
