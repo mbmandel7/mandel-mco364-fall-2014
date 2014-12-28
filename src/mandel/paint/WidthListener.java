@@ -5,9 +5,9 @@ import java.awt.event.MouseWheelListener;
 
 public class WidthListener implements MouseWheelListener{
 	
-private Canvas2 canvas;
+private Canvas canvas;
 	
-	public WidthListener(Canvas2 c) {
+	public WidthListener(Canvas c) {
 		this.canvas = c;
 	}
 

@@ -7,16 +7,17 @@ import mandel.paint.message.PaintMessage;
 
 public class LoopbackNetworkModule implements NetworkModule {
 	
-	private BufferedImage image;
+	private Canvas canvas;
 
-	public LoopbackNetworkModule(BufferedImage image){
-		this.image = image;
+	public LoopbackNetworkModule(Canvas canvas){
+		this.canvas = canvas;
 	}
 
 	@Override
 	public void sendMessage(PaintMessage message) {
 		// TODO Auto-generated method stub
-		message.apply((Graphics2D)image.getGraphics());
+		message.apply((Graphics2D)canvas.getImage().getGraphics());
+		canvas.repaint();
 	}
 
 }

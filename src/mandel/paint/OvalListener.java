@@ -14,13 +14,13 @@ public class OvalListener implements DrawListener {
 	private Point startPoint;
 	private Point movingPoint;
 
-	private Canvas2 canvas;
+	private Canvas canvas;
 	private Color color;
 	private int width;
 
 	private NetworkModule net;
 
-	public OvalListener(Canvas2 canvas, NetworkModule net) {
+	public OvalListener(Canvas canvas, NetworkModule net) {
 		this.canvas = canvas;
 		this.net = net;
 	}

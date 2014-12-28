@@ -16,13 +16,13 @@ public class RectangleListener implements DrawListener {
 	private Point startPoint;
 	private Point movingPoint;
 
-	private Canvas2 canvas;
+	private Canvas canvas;
 	private Color color;
 	private int width;
 
 	private NetworkModule net;
 
-	public RectangleListener(Canvas2 canvas, NetworkModule net) {
+	public RectangleListener(Canvas canvas, NetworkModule net) {
 		this.canvas = canvas;
 		this.net = net;
 	}
@@ -55,9 +55,11 @@ public class RectangleListener implements DrawListener {
 		Point endPoint = e.getPoint();
 		int rectWidth = getWidth(endPoint);
 		int rectLength = getLength(endPoint);
-
-		ShapeMessage message = new ShapeMessage("RECT", startPoint.x,
-				startPoint.y, rectWidth, rectLength, color.getRGB(), width,
+		int startX = getStartX(endPoint);
+		int startY = getStartY(endPoint);
+		
+		ShapeMessage message = new ShapeMessage("RECT", startX,
+				startY, rectWidth, rectLength, color.getRGB(), width,
 				false);
 		System.out.println(message.toString());
 		net.sendMessage(message);

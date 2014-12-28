@@ -13,13 +13,13 @@ public class FillRectListener implements DrawListener {
 	private Point startPoint;
 	private Point movingPoint;
 
-	private Canvas2 canvas;
+	private Canvas canvas;
 	private Color color;
 	private int width;
 
 	private NetworkModule net;
 	
-	public FillRectListener(Canvas2 canvas, NetworkModule net) {
+	public FillRectListener(Canvas canvas, NetworkModule net) {
 		this.canvas = canvas;
 		this.net = net;
 	}
@@ -54,8 +54,10 @@ public class FillRectListener implements DrawListener {
 		
 		int rectWidth = getWidth(endPoint);
 		int rectLength = getLength(endPoint);
+		int startX = getStartX(endPoint);
+		int startY = getStartY(endPoint);
 		
-		ShapeMessage message = new ShapeMessage("RECT", startPoint.x, startPoint.y, rectWidth, rectLength, color.getRGB(), width, true);
+		ShapeMessage message = new ShapeMessage("RECT", startX, startY, rectWidth, rectLength, color.getRGB(), width, true);
 		System.out.println(message);
 		
 		net.sendMessage(message);

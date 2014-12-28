@@ -6,11 +6,11 @@ import java.net.UnknownHostException;
 
 import mandel.paint.message.PaintMessage;
 
-public class OnlineNetwokModule implements NetworkModule{
+public class OnlineNetworkModule implements NetworkModule{
 	
 	private Connection conn;
 	
-	public OnlineNetwokModule() throws UnknownHostException, IOException{
+	public OnlineNetworkModule() throws UnknownHostException, IOException{
 		conn = new Connection();		
 	}
 	
