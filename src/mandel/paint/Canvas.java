@@ -22,12 +22,12 @@ public class Canvas extends JComponent {
 	private int width;
 
 	public Canvas() {
-		
+
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 
 		this.color = Color.BLACK;
-//		setListener(new PencilListener(this, color));
-		
+		// setListener(new PencilListener(this, color));
+
 		WidthListener width = new WidthListener(this);
 		this.addMouseWheelListener(width);
 
@@ -46,23 +46,23 @@ public class Canvas extends JComponent {
 		this.addMouseListener(listener);
 		this.addMouseMotionListener(listener);
 	}
-	
-	public void setColor(Color c){
+
+	public void setColor(Color c) {
 		this.color = c;
 		this.listener.setColor(color);
-	}	
+	}
 
-	public void setWidth(int w){
-		if(width + w > 0){
+	public void setWidth(int w) {
+		if (width + w > 0) {
 			width += w;
-		}		
+		}
 		this.listener.setWidth(width);
 	}
-	
-	public void networkDraw(PaintMessage msg){		
-		msg.apply((Graphics2D)image.getGraphics());
+
+	public void networkDraw(PaintMessage msg) {
+		msg.apply((Graphics2D) image.getGraphics());
 	}
-	
+
 	public DrawListener getListener() {
 		return this.listener;
 	}
@@ -70,7 +70,11 @@ public class Canvas extends JComponent {
 	@Override
 	public void paintComponent(Graphics g) {
 		g.drawImage(image, 0, 0, null);
-		listener.drawPreview((Graphics2D) g);
+		try {
+			listener.drawPreview((Graphics2D) g);
+		} catch (Exception e) {
+
+		}
 	}
 
 }

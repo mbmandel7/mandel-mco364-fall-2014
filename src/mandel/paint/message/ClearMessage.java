@@ -12,5 +12,9 @@ public class ClearMessage implements PaintMessage {
 		g.setBackground(new Color(255, 255, 255, 0));
 		g.clearRect(0, 0, 800, 600);
 	}
+	
+	public String toString(){
+		return "CLEAR\n";
+	}
 
 }

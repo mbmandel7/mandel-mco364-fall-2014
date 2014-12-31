@@ -14,7 +14,6 @@ import mandel.paint.message.PaintMessageFactory;
 
 //draw straight line, pencil, rectangle, oval, fillrect, filloval, clear screen
 
-
 public class Paint extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -26,26 +25,22 @@ public class Paint extends JFrame {
 		setSize(800, 600);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
-		
-		
+
 		canvas = new Canvas();
 		add(canvas);
-		
-//		net = new LoopbackNetworkModule(canvas);
+
+		// net = new LoopbackNetworkModule(canvas);
 		net = new OnlineNetworkModule();
-		
-		add(new ButtonPanel(canvas, net), BorderLayout.NORTH);	
-		
-		
-		
-		
+
+		add(new ButtonPanel(canvas, net), BorderLayout.NORTH);
+
 	}
-	
-	public OnlineNetworkModule getOnlineNetworkModule(){
+
+	public OnlineNetworkModule getOnlineNetworkModule() {
 		return (OnlineNetworkModule) net;
 	}
-	
-	public Canvas getCanvas(){
+
+	public Canvas getCanvas() {
 		return this.canvas;
 	}
 
@@ -58,10 +53,14 @@ public class Paint extends JFrame {
 		PaintMessageFactory messageFactory = new PaintMessageFactory();
 		PaintMessage message;
 		String line;
-		while((line = reader.readLine()) != null){
-			message = messageFactory.getMessage(line);
-			message.apply((Graphics2D)p.getCanvas().getImage().getGraphics());
-			p.getCanvas().repaint();
+		while ((line = reader.readLine()) != null) {
+			try {
+				message = messageFactory.getMessage(line);
+				message.apply((Graphics2D) p.getCanvas().getImage().getGraphics());
+				p.getCanvas().repaint();
+			} catch (Exception e) {
+
+			}
 		}
 	}
 

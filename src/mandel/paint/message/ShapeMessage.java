@@ -15,8 +15,7 @@ public class ShapeMessage implements PaintMessage {
 	private int stroke;
 	private boolean fill;
 
-	public ShapeMessage(String type, int x, int y, int width, int height,
-			int color, int stroke, boolean fill) {
+	public ShapeMessage(String type, int x, int y, int width, int height, int color, int stroke, boolean fill) {
 		super();
 		this.type = type;
 		this.x = x;
@@ -33,8 +32,7 @@ public class ShapeMessage implements PaintMessage {
 		// TODO Auto-generated method stub
 
 		g.setColor(new Color(this.color));
-		g.setStroke(new BasicStroke(this.stroke, BasicStroke.CAP_ROUND,
-				BasicStroke.JOIN_ROUND));
+		g.setStroke(new BasicStroke(this.stroke, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 		switch (type) {
 		case "RECT":
 			if (fill) {
@@ -56,8 +54,9 @@ public class ShapeMessage implements PaintMessage {
 
 	@Override
 	public String toString() {
-		return "SHAPE " + x + " " + y + " " + width + " " + height + " " + fill
-				+ " " + type + " " + color + " " + stroke + "\n";
+		return "SHAPE " + type + " " + x + " " + y + " " + width + " " + height + " " + color + " " + stroke + " "
+				+ fill + "\n";
 	}
-
+	
+	
 }
