@@ -2,8 +2,16 @@ package mandel.paint.message;
 
 import java.util.Scanner;
 
+import mandel.paint.Canvas;
+
 public class PaintMessageFactory {
 
+	private Canvas canvas;
+	
+	public PaintMessageFactory(Canvas canvas){
+		this.canvas = canvas;
+	}
+	
 	public PaintMessage getMessage(String message) {
 
 		@SuppressWarnings("resource")
@@ -37,7 +45,7 @@ public class PaintMessageFactory {
 			int x = parse.nextInt();
 			int y = parse.nextInt();
 			int color = parse.nextInt();
-			return new BucketFillMessage(x, y, color);
+			return new BucketFillMessage(x, y, color, canvas);
 		}
 		return null;
 

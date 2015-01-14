@@ -13,13 +13,13 @@ import mandel.paint.message.BucketFillMessage;
 public class BucketFillListener implements DrawListener {
 
 	private Point clickedPoint;
-	private int clickedColor;
+//	private int clickedColor;
 	private Canvas canvas;
 	private int colorInt;
 
 	private NetworkModule net;
 
-	private Stack<Point> stack;
+//	private Stack<Point> stack;
 
 	public BucketFillListener(Canvas canvas, NetworkModule net)
 			throws AWTException {
@@ -32,33 +32,33 @@ public class BucketFillListener implements DrawListener {
 	public void mouseClicked(MouseEvent e) {
 		// TODO Auto-generated method stub
 		clickedPoint = e.getPoint();
-		clickedColor = canvas.getImage().getRGB(clickedPoint.x, clickedPoint.y);
-		stack = new Stack<Point>();
+//		clickedColor = canvas.getImage().getRGB(clickedPoint.x, clickedPoint.y);
 		
 		BucketFillMessage message = new BucketFillMessage(clickedPoint.x,
-				clickedPoint.y, colorInt);
+				clickedPoint.y, colorInt, canvas);
 		net.sendMessage(message);
-		stack.push(clickedPoint);
-		Point p;
-		while (!stack.isEmpty()) {
-			p = stack.pop();
-			test(new Point(p.x, p.y - 1));
-			test(new Point(p.x - 1, p.y));
-			test(new Point(p.x, p.y + 1));
-			test(new Point(p.x + 1, p.y));
-		}
+//		stack = new Stack<Point>();
+//		stack.push(clickedPoint);
+//		Point p;
+//		while (!stack.isEmpty()) {
+//			p = stack.pop();
+//			test(new Point(p.x, p.y - 1));
+//			test(new Point(p.x - 1, p.y));
+//			test(new Point(p.x, p.y + 1));
+//			test(new Point(p.x + 1, p.y));
+//		}
 	}
-
-	public void test(Point temp) {
-		if (temp.x < 800 && temp.y < 600 && temp.x > -1 && temp.y > -1
-				&& clickedColor == canvas.getImage().getRGB(temp.x, temp.y)) {
-//			canvas.getImage().setRGB(temp.x, temp.y, colorInt);
-			BucketFillMessage message = new BucketFillMessage(temp.x,
-					temp.y, colorInt);
-			net.sendMessage(message);
-			stack.push(temp);
-		}
-	}
+//
+//	public void test(Point temp) {
+//		if (temp.x < 800 && temp.y < 600 && temp.x > -1 && temp.y > -1
+//				&& clickedColor == canvas.getImage().getRGB(temp.x, temp.y)) {
+////			canvas.getImage().setRGB(temp.x, temp.y, colorInt);
+//			BucketFillMessage message = new BucketFillMessage(temp.x,
+//					temp.y, colorInt);
+//			net.sendMessage(message);
+//			stack.push(temp);
+//		}
+//	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
