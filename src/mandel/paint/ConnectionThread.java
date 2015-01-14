@@ -13,37 +13,34 @@ import mandel.paint.message.PaintMessageFactory;
 public class ConnectionThread extends Thread {
 
 	private Canvas canvas;
-	private NetworkModule net;
+	private OnlineNetworkModule net;
 
-	public ConnectionThread(Canvas canvas, NetworkModule net) throws UnknownHostException, IOException {
+	public ConnectionThread(Canvas canvas, OnlineNetworkModule net) throws UnknownHostException, IOException {
 		this.canvas = canvas;
 		this.net = net;
 	}
 
 	@Override
 	public void run() {
-		if (net instanceof OnlineNetworkModule) {
-			OnlineNetworkModule onlineNet = (OnlineNetworkModule) net;
-			InputStream in;
-			try {
-				in = onlineNet.getConnection().getSocket().getInputStream();
-				BufferedReader reader = new BufferedReader(new InputStreamReader(in));
-				PaintMessageFactory messageFactory = new PaintMessageFactory(canvas);
-				PaintMessage message;
-				String line;
-				while ((line = reader.readLine()) != null) {
-					try {
-						message = messageFactory.getMessage(line);
-						message.apply((Graphics2D) canvas.getImage().getGraphics());
-						canvas.repaint();
-					} catch (Exception e) {
+		InputStream in;
+		try {
+			in = net.getConnection().getSocket().getInputStream();
+			BufferedReader reader = new BufferedReader(new InputStreamReader(in));
+			PaintMessageFactory messageFactory = new PaintMessageFactory(canvas);
+			PaintMessage message;
+			String line;
+			while ((line = reader.readLine()) != null) {
+				try {
+					message = messageFactory.getMessage(line);
+					message.apply((Graphics2D) canvas.getImage().getGraphics());
+					canvas.repaint();
+				} catch (Exception e) {
 
-					}
 				}
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
 			}
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
 	}
 }

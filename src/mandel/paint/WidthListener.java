@@ -5,17 +5,22 @@ import java.awt.event.MouseWheelListener;
 
 public class WidthListener implements MouseWheelListener{
 	
-private Canvas canvas;
+private Paint paint;
+private int width;
 	
-	public WidthListener(Canvas c) {
-		this.canvas = c;
+	public WidthListener(Paint p) {
+		this.paint = p;
+		width = 1;
 	}
 
 	@Override
 	public void mouseWheelMoved(MouseWheelEvent e) {
 		// TODO Auto-generated method stub
 		int rotation= e.getWheelRotation();
-		canvas.setWidth(rotation);
+		if (width + rotation > 0) {
+			width += rotation;
+		}
+		paint.setWidth(width);
 	}
 	
 		    

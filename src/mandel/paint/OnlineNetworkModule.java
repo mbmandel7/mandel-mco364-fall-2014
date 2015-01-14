@@ -10,8 +10,10 @@ public class OnlineNetworkModule implements NetworkModule{
 	
 	private Connection conn;
 	
-	public OnlineNetworkModule() throws UnknownHostException, IOException{
-		conn = new Connection();		
+	public OnlineNetworkModule(Canvas canvas) throws UnknownHostException, IOException{
+		conn = new Connection();
+		ConnectionThread connThread = new ConnectionThread(canvas, this);
+		connThread.start();				
 	}
 	
 	public Connection getConnection(){

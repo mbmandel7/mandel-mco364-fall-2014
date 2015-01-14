@@ -17,7 +17,7 @@ public class ButtonPanel extends JPanel{
 		
 		numButtons = 9;
 		buttons = new JButton[numButtons];
-		String[] buttonsText = {"Pencil", "Line", "Rectangle", "Fill Rect", "Oval", "Fill Oval", "Fill Bucket", "Color", "Clear"};
+		String[] buttonsText = {"Pencil", "Line", "Rectangle", "Fill Rect", "Oval", "Fill Oval", "Bucket Fill", "Color", "Clear"};
 		
 		for(int i = 0; i < numButtons; i++){
 			buttons[i] = new JButton(buttonsText[i]);	
@@ -32,7 +32,7 @@ public class ButtonPanel extends JPanel{
 	}
 	
 	public void setWidthText(int w){
-		width.setText("WIDTH: " + w);
+		this.width.setText("WIDTH: " + w);
 	}
 	
 //	public Color getColor(){

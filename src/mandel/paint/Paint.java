@@ -18,6 +18,7 @@ public class Paint extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private Canvas canvas;
+	private ButtonPanel btns;
 	private NetworkModule net;
 	
 	public Paint() throws IOException {
@@ -26,16 +27,21 @@ public class Paint extends JFrame {
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setLocationRelativeTo(null);
 
-		canvas = new Canvas();
+		canvas = new Canvas(this);
 		add(canvas);
 
 //		 net = new LoopbackNetworkModule(canvas);
-		net = new OnlineNetworkModule();
+		net = new OnlineNetworkModule(canvas);
 
-		add(new ButtonPanel(canvas, net), BorderLayout.NORTH);
+		btns = new ButtonPanel(canvas, net);
+		add(btns, BorderLayout.NORTH);
 
-		ConnectionThread connThread = new ConnectionThread(canvas, net);
-		connThread.start();
+		
+	}
+	
+	public void setWidth(int width){
+		btns.setWidthText(width);
+		canvas.setWidth(width);
 	}
 
 	public Canvas getCanvas() {

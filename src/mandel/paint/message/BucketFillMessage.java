@@ -7,22 +7,22 @@ import java.util.Stack;
 import mandel.paint.Canvas;
 
 public class BucketFillMessage implements PaintMessage {
-	
+
 	private int x;
 	private int y;
 	private int color;
 	private int clickedColor;
 	private Canvas canvas;
 	private Stack<Point> stack;
-	
+
 	public BucketFillMessage(int x, int y, int color, Canvas c) {
 		super();
 		this.x = x;
 		this.y = y;
 		this.color = color;
 		this.canvas = c;
-		clickedColor = canvas.getImage().getRGB(x,  y);
-		
+		clickedColor = canvas.getImage().getRGB(x, y);
+
 	}
 
 	@Override
@@ -40,18 +40,18 @@ public class BucketFillMessage implements PaintMessage {
 		}
 	}
 
-	public String toString(){
+	public String toString() {
 		return "BUCKET_FILL " + x + " " + y + " " + color + "\n";
 	}
-	
+
 	public void test(Point temp) {
-		int colorTest = this.canvas.getImage().getRGB(temp.x, temp.y);
-		if (temp.x < 800 && temp.y < 600 && temp.x > -1 && temp.y > -1
-				&& clickedColor == colorTest) {
-			canvas.getImage().setRGB(temp.x, temp.y, color);			
-			stack.push(temp);
+		if (temp.x < 800 && temp.y < 600 && temp.x > -1 && temp.y > -1) {
+			int colorTest = this.canvas.getImage().getRGB(temp.x, temp.y);
+			if (clickedColor == colorTest) {
+				canvas.getImage().setRGB(temp.x, temp.y, color);
+				stack.push(temp);
+			}
 		}
 	}
-	
 
 }

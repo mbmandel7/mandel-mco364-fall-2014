@@ -21,14 +21,14 @@ public class Canvas extends JComponent {
 	private Color color;
 	private int width;
 
-	public Canvas() {
+	public Canvas(Paint p) {
 
 		image = new BufferedImage(800, 600, BufferedImage.TYPE_INT_ARGB);
 
 		this.color = Color.BLACK;
 		// setListener(new PencilListener(this, color));
 
-		WidthListener width = new WidthListener(this);
+		WidthListener width = new WidthListener(p);
 		this.addMouseWheelListener(width);
 
 	}
@@ -52,10 +52,8 @@ public class Canvas extends JComponent {
 		this.listener.setColor(color);
 	}
 
-	public void setWidth(int w) {
-		if (width + w > 0) {
-			width += w;
-		}
+	public void setWidth(int w) {	
+		this.width = w;
 		this.listener.setWidth(width);
 	}
 
