@@ -25,7 +25,7 @@ public class ButtonPanel extends JPanel{
 			add(buttons[i]);
 		}
 		
-		width = new JLabel("");
+		width = new JLabel("WIDTH: 1");
 		add(width);
 		
 		canvas.setListener(new PencilListener(net));

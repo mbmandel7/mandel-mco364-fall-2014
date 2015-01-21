@@ -30,8 +30,8 @@ public class Paint extends JFrame {
 		canvas = new Canvas(this);
 		add(canvas);
 
-//		 net = new LoopbackNetworkModule(canvas);
-		net = new OnlineNetworkModule(canvas);
+		 net = new LoopbackNetworkModule(canvas);
+//		net = new OnlineNetworkModule(canvas);
 
 		btns = new ButtonPanel(canvas, net);
 		add(btns, BorderLayout.NORTH);
